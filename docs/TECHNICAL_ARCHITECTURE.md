@@ -8,7 +8,7 @@ pinned in `gradle/libs.versions.toml`.
 
 | Component | Version | Notes |
 |---|---|---|
-| Gradle | 9.8.1 | wrapper, `bin` distribution, checksum-verified |
+| Gradle | 9.4.1 | wrapper, `bin` distribution, checksum-pinned. Matches AGP's version line — see `ADR-021` |
 | Android Gradle Plugin | 9.4.1 | latest stable |
 | Kotlin | 2.4.21 | latest stable |
 | Compose Compiler plugin | 2.4.21 | version-locked to Kotlin |

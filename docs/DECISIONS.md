@@ -340,6 +340,23 @@ resolved, and carries exactly one primary recovery action.
 
 ---
 
+## ADR-021 — Gradle 9.4.1 wrapper, not 9.8.1
+
+**Context.** `TECHNICAL_ARCHITECTURE.md` §1 documented Gradle 9.8.1 (the current
+release on 2026-10-15). The build machine already has a 9.4.1 distribution cached,
+verified working with JDK 17.
+
+**Decision.** Pin the wrapper to **9.4.1**, matching AGP 9.4.1's own version line.
+
+**Consequences.** No 130 MB download on first build, and the Gradle and AGP minor
+versions match exactly, which removes a compatibility unknown. The wrapper is
+checksum-pinned (`distributionSha256Sum`) so the build stays reproducible.
+**Revisit when:** a feature needs something only in a later Gradle, or AGP moves on.
+
+**Status:** Accepted. **Deviates from `TECHNICAL_ARCHITECTURE.md` §1 as first written.**
+
+---
+
 ## Deviations summary
 
 Changes from the supplied concept board, with their ADR:
