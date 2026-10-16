@@ -327,6 +327,21 @@ Automated tests cannot verify that light actually came out of the phone.
 | OEM with aggressive background management | Xiaomi / Oppo / Vivo / Samsung | Background torch opt-in; service survival or graceful failure |
 | Foldable | — | Layout across fold/unfold; simulator surface recreation |
 
+### Devices actually available (verified 2026-10-16)
+
+| Device | Class | Android | ABI | RAM | GL ES | Flash | Flash strength API |
+|---|---|---|---|---|---|---|---|
+| **OPPO CPH2127** | **Low** | 12 (API 31) | arm64-v8a | 3.56 GB | **3.2** | **yes** | **no** — API 31 < 33 |
+
+This device is a genuinely useful matrix entry: it is Low-class, has a flash unit, is
+below API 33 so it cannot expose flash strength (confirming `LIM-FLASH-STRENGTH`
+firsthand), supports GL ES 3.2 so Filament will run, and is an OPPO/ColorOS build —
+one of the OEMs named in `LIM-OEM-BACKGROUND`.
+
+Still needed for a complete matrix: a Mid or High device on API 33+ (to exercise the
+flash-strength path at all), and a device with **no** flash unit (to verify
+`AC-HOME-02` on real hardware rather than only against a fake).
+
 Per-device checklist: cold start feel · torch on/off and physical light confirmed ·
 torch state after backgrounding · screen light at min and max brightness · SOS visually
 correct · strobe warning appears once · each 3D object loads, rotates, and its light

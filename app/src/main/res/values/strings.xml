@@ -1,4 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">All-in-One Lighting</string>
+    <string name="app_tagline">Practical light · 3D simulator · Smart future</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_3d">3D</string>
+    <string name="nav_tools">Tools</string>
+    <string name="nav_settings">Settings</string>
+    <string name="action_back">Back</string>
+    <string name="action_next">Next</string>
+    <string name="action_skip">Skip</string>
+    <string name="action_get_started">Get started</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="badge_coming_soon">Coming soon</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_page_indicator">Page %1$d of %2$d</string>
+    <string name="onboarding_1_title">Practical lighting for everyday life</string>
+    <string name="onboarding_1_body">Use your phone\'s flashlight, a full-screen light, and emergency signals.</string>
+    <string name="onboarding_2_title">Explore realistic 3D light sources</string>
+    <string name="onboarding_2_body">Rotate, adjust, and see how different lights actually behave.</string>
+    <string name="onboarding_3_title">More features coming soon</string>
+    <string name="onboarding_3_body">Smart light integration and custom scenes are on the way.</string>
+
+    <!-- Home -->
+    <string name="home_title">All-in-One Lighting</string>
+    <string name="home_section_tools">Lighting tools</string>
+    <string name="home_flashlight_title">Phone flashlight</string>
+    <string name="home_screenlight_title">Screen light</string>
+    <string name="home_screenlight_subtitle">Colour &amp; brightness</string>
+    <string name="home_emergency_title">Emergency</string>
+    <string name="home_emergency_subtitle">SOS &amp; strobe</string>
+    <string name="home_candle_title">Candle light</string>
+    <string name="home_candle_subtitle">Warm ambience</string>
+    <string name="home_more_title">More tools</string>
+    <string name="home_more_subtitle">Explore all</string>
+    <string name="home_simulator_title">3D simulator</string>
+    <string name="home_simulator_subtitle">Explore 3D light sources</string>
+    <string name="home_smartlight_title">Smart lights</string>
+    <string name="home_smartlight_subtitle">Control bulbs and scenes</string>
+
+    <!-- Torch state (FR-HOME-02) -->
+    <string name="torch_state_checking">Checking…</string>
+    <string name="torch_state_ready">Ready to use</string>
+    <string name="torch_state_on">On</string>
+    <string name="torch_state_off">Off</string>
+    <string name="torch_state_unsupported">Not supported on this device</string>
+    <string name="torch_state_conflict">Camera is in use by another app</string>
+    <string name="torch_state_policy">Disabled by a device policy</string>
+    <string name="torch_toggle_description">Flashlight</string>
+
+    <!-- Torch errors (docs/ANDROID_HARDWARE_SPEC.md §1) -->
+    <string name="torch_error_no_flash_title">Flashlight not available</string>
+    <string name="torch_error_no_flash_body">This device doesn\'t have a camera flash.</string>
+    <string name="torch_error_in_use_title">Camera is in use</string>
+    <string name="torch_error_in_use_body">Another app is using the camera. Close it and try again.</string>
+    <string name="torch_error_policy_title">Flashlight is disabled</string>
+    <string name="torch_error_policy_body">Your device\'s administrator has disabled the flashlight.</string>
+    <string name="torch_error_unknown_title">Couldn\'t turn on the flashlight</string>
+    <string name="torch_error_unknown_body">The flashlight didn\'t respond. Try again.</string>
+    <string name="flashlight_uses_camera_flash">This uses your device\'s camera flash.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_group_general">General</string>
+    <string name="settings_group_display">Display</string>
+    <string name="settings_group_privacy">Privacy</string>
+    <string name="settings_group_about">About</string>
+    <string name="settings_show_intro">Show introduction again</string>
+    <string name="settings_show_intro_subtitle">Replay the welcome screens</string>
+    <string name="settings_keep_torch">Keep torch on in background</string>
+    <string name="settings_keep_torch_subtitle">A notification will stay in your status bar while the torch is on.</string>
+    <string name="settings_reduce_motion">Reduce motion</string>
+    <string name="settings_reduce_motion_subtitle">Minimise animation across the app</string>
+    <string name="settings_display_title">Display</string>
+    <string name="settings_display_subtitle">Brightness, environment, quality</string>
+    <string name="settings_permissions_title">Permissions</string>
+    <string name="settings_permissions_subtitle">What this app asks for</string>
+    <string name="settings_about_title">About this app</string>
+    <string name="settings_about_subtitle">Version and licences</string>
+
+    <!-- Permissions screen (FR-SET-04) -->
+    <string name="permissions_heading">This app requests no permissions</string>
+    <string name="permissions_body">All-in-One Lighting works without asking for any runtime permission.</string>
+    <string name="permissions_camera">Camera — not requested. Your flashlight is controlled without camera access.</string>
+    <string name="permissions_other">Location, storage and microphone — not requested. This app doesn\'t use them.</string>
+    <string name="permissions_open_settings">Open system app settings</string>
+
+    <!-- About -->
+    <string name="about_title">About</string>
+    <string name="about_version">Version %1$s (%2$d)</string>
+    <string name="about_privacy_policy">Privacy policy</string>
+    <string name="about_licences">Open-source licences</string>
+    <string name="about_help">Help &amp; support</string>
+    <string name="licences_title">Open-source licences</string>
+
+    <!-- Smart light (FR-SMART-01/02) -->
+    <string name="smartlight_title">Smart lights</string>
+    <string name="smartlight_heading">Smart light integration is on the way</string>
+    <string name="smartlight_body">We\'re planning to let you discover bulbs on your network and control them from here.</string>
+    <string name="smartlight_planned_1">Find compatible bulbs on your home network</string>
+    <string name="smartlight_planned_2">Turn lights on and off</string>
+    <string name="smartlight_planned_3">Adjust brightness and colour</string>
+    <string name="smartlight_planned_4">Save and recall scenes</string>
+    <string name="smartlight_learn_more">What\'s planned</string>
+    <string name="smartlight_no_control_note">This screen can\'t control any lights yet. When it can, you\'ll be able to set it up here.</string>
+
+    <!-- Placeholder screens still to be implemented (Phase 2/3) -->
+    <string name="coming_in_phase_body">This screen is part of a later build stage and isn\'t implemented yet.</string>
 </resources>

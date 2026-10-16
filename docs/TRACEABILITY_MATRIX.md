@@ -5,7 +5,7 @@ Requirement → module → screen → test → acceptance criterion.
 
 **Status key:** ⬜ not started · 🟨 in progress · ✅ implemented & tested
 
-_Last updated: 2026-10-15 (Phase 1 starting; all implementation rows ⬜)_
+_Last updated: 2026-10-16 — Phase 1 in progress. ✅ rows have an implementation AND a test that was executed._
 
 ---
 
@@ -15,13 +15,13 @@ _Last updated: 2026-10-15 (Phase 1 starting; all implementation rows ⬜)_
 |---|---|---|---|---|---|
 | FR-GLOBAL-01 | all | all | `T-GLOBAL-01` | `AC-GLOBAL-01` | ⬜ |
 | FR-GLOBAL-02 | `domain/torch`, `data/hardware` | `SCR-HOME`, `SCR-FLASHLIGHT` | `T-TORCH-04` | `AC-GLOBAL-02` | ⬜ |
-| FR-GLOBAL-03 | `res/values/strings.xml` | all | `T-GLOBAL-02` | `AC-GLOBAL-03` | ⬜ |
-| FR-GLOBAL-04 | manifest | all | `T-GLOBAL-03`, `T-SMART-03` | `AC-GLOBAL-04` | ⬜ |
+| FR-GLOBAL-03 | `res/values/strings.xml` | all | `T-GLOBAL-02` | `AC-GLOBAL-03` | 🟨 |
+| FR-GLOBAL-04 | manifest | all | `T-GLOBAL-03`, `T-SMART-03` | `AC-GLOBAL-04` | 🟨 |
 | FR-GLOBAL-05 | `navigation` | all | `T-NAV-03` | `AC-GLOBAL-01` | ⬜ |
 | FR-GLOBAL-06 | `feature/*` lifecycle | light screens | `T-NAV-03`, `T-TORCH-07`, `T-EMER-05` | — | ⬜ |
 | FR-GLOBAL-07 | `ui/theme`, layouts | all | `T-A11Y-05` | `NFR-A11Y-*` | ⬜ |
-| — | `core`, `domain` layering | — | `T-ARCH-01` | — | ⬜ |
-| — | `ui/theme` tokens | — | `T-DS-01`, `T-DS-02` | — | ⬜ |
+| — | `core`, `domain` layering | — | `T-ARCH-01` | — | ✅ |
+| — | `ui/theme` tokens | — | `T-DS-01`, `T-DS-02` | — | ✅ |
 | — | dependencies | — | `T-DEP-01` | — | ⬜ |
 | — | logging | — | `T-LOG-01` | — | ⬜ |
 | — | manifest permissions | — | `T-PERM-01`, `T-PERM-02` | — | ⬜ |
@@ -31,11 +31,11 @@ _Last updated: 2026-10-15 (Phase 1 starting; all implementation rows ⬜)_
 
 | Req | Module | Screen | Test | AC | Status |
 |---|---|---|---|---|---|
-| FR-ONB-01 | `MainActivity`, splash API | `SCR-SPLASH` | `T-ONB-01`, `T-PERF-01` | `AC-ONB-05` | ⬜ |
-| FR-ONB-02 | `feature/onboarding` | `SCR-ONBOARDING` | `T-ONB-01` | `AC-ONB-01` | ⬜ |
-| FR-ONB-03 | `feature/onboarding` | `SCR-ONBOARDING` | `T-ONB-03`, `T-ONB-05` | `AC-ONB-03` | ⬜ |
-| FR-ONB-04 | `data/prefs` | `SCR-ONBOARDING` | `T-ONB-02`, `T-ONB-06` | `AC-ONB-02` | ⬜ |
-| FR-ONB-05 | `feature/onboarding` | `SCR-ONBOARDING` | `T-ONB-04`, `T-PERM-02` | `AC-ONB-04` | ⬜ |
+| FR-ONB-01 | `MainActivity`, splash API | `SCR-SPLASH` | `T-ONB-01`, `T-PERF-01` | `AC-ONB-05` | ✅ |
+| FR-ONB-02 | `feature/onboarding` | `SCR-ONBOARDING` | `T-ONB-01` | `AC-ONB-01` | ✅ |
+| FR-ONB-03 | `feature/onboarding` | `SCR-ONBOARDING` | `T-ONB-03`, `T-ONB-05` | `AC-ONB-03` | ✅ |
+| FR-ONB-04 | `data/prefs` | `SCR-ONBOARDING` | `T-ONB-02`, `T-ONB-06` | `AC-ONB-02` | ✅ |
+| FR-ONB-05 | `feature/onboarding` | `SCR-ONBOARDING` | `T-ONB-04`, `T-PERM-02` | `AC-ONB-04` | ✅ |
 | FR-ONB-06 | `feature/settings` | `SCR-SETTINGS` | `T-SET-02` | `AC-SET-02` | ⬜ |
 
 ## Home
@@ -47,7 +47,7 @@ _Last updated: 2026-10-15 (Phase 1 starting; all implementation rows ⬜)_
 | FR-HOME-03 | `feature/home`, `ui/components` | `SCR-HOME` | `T-NAV-01` | `AC-HOME-04` | ⬜ |
 | FR-HOME-04 | `navigation` | `SCR-HOME` | `T-NAV-01` | `AC-HOME-04` | ⬜ |
 | FR-HOME-05 | `feature/home` | `SCR-HOME` | `T-SMART-02` | `AC-SMART-02` | ⬜ |
-| FR-HOME-06 | `navigation` | all tabs | `T-NAV-02` | — | ⬜ |
+| FR-HOME-06 | `navigation` | all tabs | `T-NAV-02` | — | 🟨 |
 | FR-HOME-07 | `core/device` | `SCR-HOME` | `T-HOME-02` | `AC-HOME-02` | ⬜ |
 
 ## Torch
@@ -130,15 +130,15 @@ _Last updated: 2026-10-15 (Phase 1 starting; all implementation rows ⬜)_
 
 | Req | Module | Screen | Test | AC | Status |
 |---|---|---|---|---|---|
-| FR-SET-01 | `feature/settings` | `SCR-SETTINGS` | `T-SET-01` | `AC-SET-01` | ⬜ |
+| FR-SET-01 | `feature/settings` | `SCR-SETTINGS` | `T-SET-01` | `AC-SET-01` | ✅ |
 | FR-SET-02 | `feature/settings` | `SCR-SETTINGS` | `T-SET-02` | `AC-SET-02` | ⬜ |
 | FR-SET-03 | `feature/settings` | `SCR-SETTINGS-DISPLAY` | `T-A11Y-04` | `NFR-A11Y-04` | ⬜ |
-| FR-SET-04 | `feature/settings` | `SCR-SETTINGS-PERMISSIONS` | `T-SET-05` | — | ⬜ |
-| FR-SET-05 | `feature/settings` | `SCR-ABOUT` | `T-SET-03` | `AC-SET-03` | ⬜ |
+| FR-SET-04 | `feature/settings` | `SCR-SETTINGS-PERMISSIONS` | `T-SET-05` | — | ✅ |
+| FR-SET-05 | `feature/settings` | `SCR-ABOUT` | `T-SET-03` | `AC-SET-03` | ✅ |
 | FR-SET-06 | `feature/settings` | `SCR-LICENCES` | `T-SET-04` | `AC-SET-04` | ⬜ |
-| FR-SMART-01 | `feature/smartlight` | `SCR-SMARTLIGHT` | `T-SMART-02` | `AC-SMART-02` | ⬜ |
-| FR-SMART-02 | `feature/smartlight` | `SCR-SMARTLIGHT` | `T-SMART-01` | `AC-SMART-01` | ⬜ |
-| FR-SMART-03 | manifest | `SCR-SMARTLIGHT` | `T-SMART-03` | `AC-SMART-03` | ⬜ |
+| FR-SMART-01 | `feature/smartlight` | `SCR-SMARTLIGHT` | `T-SMART-02` | `AC-SMART-02` | ✅ |
+| FR-SMART-02 | `feature/smartlight` | `SCR-SMARTLIGHT` | `T-SMART-01` | `AC-SMART-01` | ✅ |
+| FR-SMART-03 | manifest | `SCR-SMARTLIGHT` | `T-SMART-03` | `AC-SMART-03` | ✅ |
 | FR-SMART-04 | `domain/smartlight` | — | compile + fake-based tests | — | ⬜ |
 | FR-SMART-05 | *(Phase 6)* | — | — | — | ⬜ |
 | FR-MON-01 | — | — | `T-MON-01` | `AC-MON-01` | ⬜ |
@@ -159,10 +159,10 @@ _Last updated: 2026-10-15 (Phase 1 starting; all implementation rows ⬜)_
 | NFR-BAT-02 | — | `T-GLOBAL-04` | ⬜ |
 | NFR-REL-01 | — | post-launch vitals | ⬜ |
 | NFR-A11Y-01 | `ui/components` | `T-A11Y-01` | ⬜ |
-| NFR-A11Y-02 | `ui/theme` | `T-A11Y-02` | ⬜ |
+| NFR-A11Y-02 | `ui/theme` | `T-A11Y-02` | ✅ |
 | NFR-A11Y-03 | all screens | `T-A11Y-03`, `T-A11Y-07` | ⬜ |
 | NFR-A11Y-04 | `ui/theme/Motion` | `T-A11Y-04` | ⬜ |
-| NFR-COMPAT-01 | `app/build.gradle.kts` | build | ⬜ |
+| NFR-COMPAT-01 | `app/build.gradle.kts` | build | ✅ |
 | NFR-COMPAT-02 | `core/device` | `T-3D-08` | ⬜ |
 
 ## User stories

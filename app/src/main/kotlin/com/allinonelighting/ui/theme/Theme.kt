@@ -60,6 +60,7 @@ fun AppTheme(
         LocalMotion provides if (effectiveReduceMotion) Motion.None else Motion(),
         LocalReduceMotion provides effectiveReduceMotion,
         LocalSurfaces provides Surfaces(),
+        LocalSizes provides Sizes(),
     ) {
         MaterialTheme(
             colorScheme = AppColorScheme,
