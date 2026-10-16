@@ -111,4 +111,24 @@
 
     <!-- Placeholder screens still to be implemented (Phase 2/3) -->
     <string name="coming_in_phase_body">This screen is part of a later build stage and isn\'t implemented yet.</string>
+
+    <!-- Navigation argument echo, shown by the Phase 1 placeholders so argument
+         plumbing is observable before the real screens exist. Removed in Phase 2/3. -->
+    <string name="nav_arg_mode">Requested mode: %1$s</string>
+    <string name="nav_arg_pattern">Requested pattern: %1$s</string>
+    <string name="nav_arg_object">Requested light source: %1$s</string>
+    <string name="sim_object_unknown_title">Light source not found</string>
+    <string name="sim_object_unknown_body">That light source isn\'t in this build.</string>
+
+    <!-- More Tools (FR-TOOLS-01). Party Mode and Music Light are absent by design. -->
+    <string name="tool_color_light">Colour light</string>
+    <string name="tool_color_light_subtitle">Full-screen colour</string>
+    <string name="tool_night_light">Night light</string>
+    <string name="tool_night_light_subtitle">Soft and gentle</string>
+    <string name="tool_sos_light">SOS light</string>
+    <string name="tool_sos_light_subtitle">Emergency signal</string>
+    <string name="tool_strobe_light">Strobe light</string>
+    <string name="tool_strobe_light_subtitle">Flashing light</string>
+    <string name="tool_candle_light">Candle light</string>
+    <string name="tool_candle_light_subtitle">Warm ambience</string>
 </resources>

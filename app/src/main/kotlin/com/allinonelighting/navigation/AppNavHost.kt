@@ -9,17 +9,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.allinonelighting.R
+import com.allinonelighting.domain.emergency.EmergencyPattern
+import com.allinonelighting.domain.screenlight.ScreenLightMode
+import com.allinonelighting.domain.simulator.LightObjectId
 import com.allinonelighting.feature.onboarding.OnboardingScreen
 import com.allinonelighting.feature.placeholder.NotYetImplementedScreen
 import com.allinonelighting.feature.settings.AboutScreen
 import com.allinonelighting.feature.settings.PermissionsScreen
 import com.allinonelighting.feature.settings.SettingsScreen
 import com.allinonelighting.feature.smartlight.SmartLightScreen
+import com.allinonelighting.feature.tools.ToolDestination
+import com.allinonelighting.feature.tools.ToolsScreen
 
 /**
  * Root navigation — docs/SCREEN_SPECIFICATION.md §0.
@@ -34,8 +41,7 @@ fun AppNavHost(
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
-    val showBottomNav = currentRoute != null &&
-        FULL_SCREEN_ROUTES.none { currentRoute.startsWith(it) }
+    val showBottomNav = currentRoute != null && !isFullScreenRoute(currentRoute)
 
     Column(modifier = modifier.fillMaxSize()) {
         NavHost(
@@ -54,7 +60,7 @@ fun AppNavHost(
             }
 
             composable(Routes.HOME) {
-                // Replaced by the real dashboard in Phase 2 (torch control).
+                // Real dashboard (hero card, tool grid) lands with torch control in Phase 2.
                 NotYetImplementedScreen(
                     title = stringResource(R.string.home_title),
                     modifier = Modifier.safeDrawingPadding(),
@@ -69,8 +75,19 @@ fun AppNavHost(
             }
 
             composable(Routes.TOOLS) {
-                NotYetImplementedScreen(
-                    title = stringResource(R.string.home_more_title),
+                ToolsScreen(
+                    onOpen = { destination ->
+                        when (destination) {
+                            is ToolDestination.ScreenLight ->
+                                navController.navigate(Routes.screenLight(destination.mode))
+
+                            is ToolDestination.Emergency ->
+                                navController.navigate(Routes.emergency(destination.pattern))
+
+                            ToolDestination.Candle ->
+                                navController.navigate(Routes.CANDLE)
+                        }
+                    },
                     modifier = Modifier.safeDrawingPadding(),
                 )
             }
@@ -116,23 +133,82 @@ fun AppNavHost(
                     modifier = Modifier.safeDrawingPadding(),
                 )
             }
-            composable(Routes.SCREEN_LIGHT) {
+
+            // --- Argument-carrying destinations ---------------------------------
+
+            composable(
+                route = Routes.SCREEN_LIGHT_PATTERN,
+                arguments = listOf(
+                    navArgument(Routes.ARG_MODE) {
+                        type = NavType.StringType
+                        defaultValue = ScreenLightMode.Default.slug
+                    },
+                ),
+            ) { entry ->
+                // An unrecognised mode falls back to white rather than failing: a
+                // wrong colour is harmless, and the screen must always open.
+                val mode = ScreenLightMode.fromSlug(
+                    entry.arguments?.getString(Routes.ARG_MODE),
+                )
                 NotYetImplementedScreen(
                     title = stringResource(R.string.home_screenlight_title),
+                    detail = stringResource(R.string.nav_arg_mode, mode.slug),
                     modifier = Modifier.safeDrawingPadding(),
                 )
             }
+
             composable(Routes.CANDLE) {
                 NotYetImplementedScreen(
                     title = stringResource(R.string.home_candle_title),
                     modifier = Modifier.safeDrawingPadding(),
                 )
             }
-            composable(Routes.EMERGENCY) {
+
+            composable(
+                route = Routes.EMERGENCY_PATTERN,
+                arguments = listOf(
+                    navArgument(Routes.ARG_PATTERN) {
+                        type = NavType.StringType
+                        defaultValue = EmergencyPattern.Default.slug
+                    },
+                ),
+            ) { entry ->
+                // Unknown pattern falls back to SOS — the safe, standard default.
+                val pattern = EmergencyPattern.fromSlug(
+                    entry.arguments?.getString(Routes.ARG_PATTERN),
+                )
                 NotYetImplementedScreen(
                     title = stringResource(R.string.home_emergency_title),
+                    detail = stringResource(R.string.nav_arg_pattern, pattern.slug),
                     modifier = Modifier.safeDrawingPadding(),
                 )
+            }
+
+            composable(
+                route = Routes.SIM_VIEWER_PATTERN,
+                arguments = listOf(
+                    navArgument(Routes.ARG_OBJECT_ID) { type = NavType.StringType },
+                ),
+            ) { entry ->
+                // Unlike the two above, an unknown object id does NOT fall back:
+                // showing a different model than the one requested would be wrong
+                // content, so it becomes a recoverable error (FR-3D-14).
+                val objectId = LightObjectId.fromSlug(
+                    entry.arguments?.getString(Routes.ARG_OBJECT_ID),
+                )
+                if (objectId == null) {
+                    NotYetImplementedScreen(
+                        title = stringResource(R.string.sim_object_unknown_title),
+                        detail = stringResource(R.string.sim_object_unknown_body),
+                        modifier = Modifier.safeDrawingPadding(),
+                    )
+                } else {
+                    NotYetImplementedScreen(
+                        title = stringResource(R.string.home_simulator_title),
+                        detail = stringResource(R.string.nav_arg_object, objectId.slug),
+                        modifier = Modifier.safeDrawingPadding(),
+                    )
+                }
             }
         }
 

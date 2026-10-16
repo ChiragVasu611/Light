@@ -47,7 +47,7 @@ _Last updated: 2026-10-16 — Phase 1 in progress. ✅ rows have an implementati
 | FR-HOME-03 | `feature/home`, `ui/components` | `SCR-HOME` | `T-NAV-01` | `AC-HOME-04` | ⬜ |
 | FR-HOME-04 | `navigation` | `SCR-HOME` | `T-NAV-01` | `AC-HOME-04` | ⬜ |
 | FR-HOME-05 | `feature/home` | `SCR-HOME` | `T-SMART-02` | `AC-SMART-02` | ⬜ |
-| FR-HOME-06 | `navigation` | all tabs | `T-NAV-02` | — | 🟨 |
+| FR-HOME-06 | `navigation` | all tabs | `T-NAV-02` | — | ✅ |
 | FR-HOME-07 | `core/device` | `SCR-HOME` | `T-HOME-02` | `AC-HOME-02` | ⬜ |
 
 ## Torch
@@ -68,7 +68,7 @@ _Last updated: 2026-10-16 — Phase 1 in progress. ✅ rows have an implementati
 | Req | Module | Screen | Test | AC | Status |
 |---|---|---|---|---|---|
 | FR-SCREEN-01 | `feature/screenlight` | `SCR-SCREENLIGHT` | `T-SCREEN-01` | `AC-SCREEN-01` | ⬜ |
-| FR-SCREEN-02 | `feature/screenlight` | `SCR-SCREENLIGHT` | `T-SCREEN-01` | `AC-SCREEN-01` | ⬜ |
+| FR-SCREEN-02 | `feature/screenlight` | `SCR-SCREENLIGHT` | `T-SCREEN-01` | `AC-SCREEN-01` | ✅ |
 | FR-SCREEN-03 | `ui/components/CMP-SWATCH` | `SCR-SCREENLIGHT` | `T-SCREEN-01` | `AC-SCREEN-01` | ⬜ |
 | FR-SCREEN-04 | `data/hardware/WindowScreenLight` | `SCR-SCREENLIGHT` | `T-SCREEN-08` | — | ⬜ |
 | FR-SCREEN-05 | `data/hardware/WindowScreenLight` | `SCR-SCREENLIGHT` | `T-SCREEN-02` | `AC-SCREEN-02` | ⬜ |
@@ -87,7 +87,7 @@ _Last updated: 2026-10-16 — Phase 1 in progress. ✅ rows have an implementati
 |---|---|---|---|---|---|
 | FR-EMER-01 | `domain/emergency` | `SCR-EMERGENCY` | `T-EMER-01` | `AC-EMER-01` | ⬜ |
 | FR-EMER-02 | `feature/emergency` | `SCR-EMERGENCY` | `T-EMER-04` | `AC-EMER-04` | ⬜ |
-| FR-EMER-03 | `feature/emergency` | `SCR-EMERGENCY` | `T-EMER-02` | `AC-EMER-02` | ⬜ |
+| FR-EMER-03 | `feature/emergency` | `SCR-EMERGENCY` | `T-EMER-02` | `AC-EMER-02` | ✅ |
 | FR-EMER-04 | `feature/emergency` | `SCR-EMERGENCY` | `T-EMER-03` | `AC-EMER-03` | ⬜ |
 | FR-EMER-05 | `domain/emergency`, `data/prefs` | `SCR-EMERGENCY` | `T-EMER-02`, `T-EMER-06` | `AC-EMER-02/06` | ⬜ |
 | FR-EMER-06 | `feature/emergency` | `SCR-EMERGENCY` | `T-EMER-06` | — | ⬜ |
@@ -100,15 +100,15 @@ _Last updated: 2026-10-16 — Phase 1 in progress. ✅ rows have an implementati
 
 | Req | Module | Screen | Test | AC | Status |
 |---|---|---|---|---|---|
-| FR-TOOLS-01 | `feature/tools` | `SCR-TOOLS` | `T-TOOLS-01` | `AC-TOOLS-01` | ⬜ |
-| — (deep links) | `navigation` | `SCR-TOOLS` | `T-TOOLS-02` | `AC-TOOLS-02` | ⬜ |
+| FR-TOOLS-01 | `feature/tools` | `SCR-TOOLS` | `T-TOOLS-01` | `AC-TOOLS-01` | ✅ |
+| — (route arguments) | `navigation`, `domain` | `SCR-TOOLS` | `T-TOOLS-02`, `T-NAV-01/02` | `AC-TOOLS-02` | ✅ |
 
 ## 3D simulator
 
 | Req | Module | Screen | Test | AC | Status |
 |---|---|---|---|---|---|
 | FR-3D-01 | `data/catalog` | `SCR-SIM-GALLERY` | `T-NAV-02` | — | ⬜ |
-| FR-3D-02 | `assets/catalog.json` | `SCR-SIM-GALLERY` | `T-TOOLS-01`-style audit | — | ⬜ |
+| FR-3D-02 | `assets/catalog.json` | `SCR-SIM-GALLERY` | `T-TOOLS-01`-style audit | — | ✅ |
 | FR-3D-03 | `render/OrbitController` | `SCR-SIM-VIEWER` | `T-3D-13` | — | ⬜ |
 | FR-3D-04 | `render/LightRig` | `SCR-SIM-VIEWER` | `T-3D-01` | `AC-3D-01` | ⬜ |
 | FR-3D-05 | `render/LightRig` | `SCR-SIM-VIEWER` | `T-3D-01` | `AC-3D-01` | ⬜ |
