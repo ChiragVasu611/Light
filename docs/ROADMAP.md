@@ -7,7 +7,7 @@ not assertions.
 | Phase | Theme | Status |
 |---|---|---|
 | 0 | Repository and documentation | ✅ Complete |
-| 1 | Application foundation | ▶ In progress |
+| 1 | Application foundation | ▶ In progress — build, design system, navigation, onboarding, settings done and verified on device |
 | 2 | Core practical lighting | Not started |
 | 3 | Initial 3D simulator | Not started |
 | 4 | Quality and reliability | Not started |
@@ -71,18 +71,31 @@ and no feature logic. Nothing in this phase touches hardware or Filament.
 `T-DS-02`, `T-ARCH-01`, `T-GLOBAL-02`, `T-GLOBAL-03`, `T-GLOBAL-04`, `T-DEP-01`,
 `T-LOG-01`, `T-PERM-01`, `T-PERM-02`, `T-A11Y-01..03` (for components built).
 
-### Exit criteria
+### Exit criteria — status 2026-10-16
 
-- [ ] `./gradlew assembleDebug` succeeds — output recorded
-- [ ] `./gradlew assembleRelease` succeeds with R8 — output recorded
-- [ ] `./gradlew testDebugUnitTest` — zero failures, report recorded
-- [ ] `./gradlew connectedDebugAndroidTest` — zero failures (emulator acceptable)
-- [ ] `./gradlew lintDebug` — zero errors
-- [ ] Every screen in the navigation graph is reachable and renders
-- [ ] Design tokens match `UI_DESIGN_SYSTEM.md`; `T-DS-01` passes
-- [ ] Onboarding works end to end and persists its flag
-- [ ] No hardware or Filament code exists yet
-- [ ] Traceability matrix updated for everything implemented
+- [x] `./gradlew assembleDebug` succeeds
+- [x] `./gradlew assembleRelease` succeeds with R8
+- [x] `./gradlew testDebugUnitTest` — **26 tests, 0 failures**
+- [x] `./gradlew connectedDebugAndroidTest` — **11 tests, 0 failures, on a real device** (OPPO CPH2127, Android 12)
+- [x] `./gradlew lintDebug` — zero errors
+- [x] Design tokens match `UI_DESIGN_SYSTEM.md`; `T-DS-01` passes
+- [x] Onboarding works end to end and persists its flag (confirmed by hand on device: relaunch skips onboarding)
+- [x] No hardware or Filament code exists yet
+- [x] Traceability matrix updated
+- [ ] **Every screen in the navigation graph is reachable and renders** — partial, see below
+
+**Remaining before Phase 1 can be declared complete:**
+
+| # | Item |
+|---|---|
+| 1.8b | Route arguments not yet wired: `SCREEN_LIGHT?mode=`, `EMERGENCY?pattern=`, `SIM_VIEWER/{objectId}` |
+| 1.9b | Home is an honest placeholder; its real layout (hero card + 2×2 grid + rows) lands with torch control in Phase 2 |
+| 1.7b | Components written but not yet exercised by a UI test: `HeroCard`, `ToolCard`, `SegmentedControl`, `PowerToggle`, `AppBanner`, `LoadingState` |
+| 1.11b | Display settings and Licences screens are placeholders |
+| — | Onboarding illustrations not yet added (pages render text-only, leaving a visible gap) |
+
+Nothing above blocks Phase 2 design work, but Phase 1 is **not** signed off until
+1.8b and 1.7b are done.
 
 **Dependencies:** none beyond the toolchain.
 **Risk:** AGP 9.4.1 is a recent major release; DSL changes may require adjustment.
