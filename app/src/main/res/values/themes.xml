@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      Splash theme. The windowBackground is Ink900 so the system splash matches
+      the app ground with no flash of white. See docs/SCREEN_SPECIFICATION.md SCR-SPLASH.
+    -->
+    <style name="Theme.AllInOneLighting.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/ink_900</item>
+        <item name="postSplashScreenTheme">@style/Theme.AllInOneLighting</item>
+    </style>
+
+    <style name="Theme.AllInOneLighting" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/ink_900</item>
+    </style>
+</resources>

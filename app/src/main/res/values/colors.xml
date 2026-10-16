@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Only colours the Android resource system needs. The Compose palette
+         lives in ui/theme/Color.kt. See docs/UI_DESIGN_SYSTEM.md §2. -->
+    <color name="ink_900">#05070F</color>
+</resources>

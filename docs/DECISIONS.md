@@ -30,7 +30,13 @@ domain layer appears.
 **Context.** Filament's AAR declares `minSdkVersion 21` (verified from the 1.77.3
 artifact). `setTorchMode` and `TorchCallback` require API 23.
 
-**Decision.** `minSdk 24`, `compileSdk 36`, `targetSdk 36`.
+**Decision.** `minSdk 24`, `compileSdk 37`, `targetSdk 36`.
+
+**Correction (2026-10-16).** `compileSdk` was originally specified as 36. The build
+rejected it: `androidx.core:core-ktx:1.19.1` requires consumers to compile against
+API 37 or later. Android SDK Platform 37.0 was installed and `compileSdk` raised to 37.
+`targetSdk` stays at 36 — compile and target levels are independent, and raising
+`targetSdk` opts into new runtime behaviour that needs its own verification pass.
 
 **Consequences.** 24 clears all our API requirements with margin and avoids the
 pre-Nougat graphics driver tail, at a negligible device-coverage cost. Flash-strength
@@ -340,20 +346,51 @@ resolved, and carries exactly one primary recovery action.
 
 ---
 
-## ADR-021 — Gradle 9.4.1 wrapper, not 9.8.1
+## ADR-021 — Gradle 9.8.1 wrapper
 
-**Context.** `TECHNICAL_ARCHITECTURE.md` §1 documented Gradle 9.8.1 (the current
-release on 2026-10-15). The build machine already has a 9.4.1 distribution cached,
-verified working with JDK 17.
+**Context.** An earlier revision of this ADR pinned the wrapper to the locally cached
+Gradle 9.4.1 on the assumption that matching AGP's version line would be safe.
 
-**Decision.** Pin the wrapper to **9.4.1**, matching AGP 9.4.1's own version line.
+**That assumption was wrong and the build proved it:**
 
-**Consequences.** No 130 MB download on first build, and the Gradle and AGP minor
-versions match exactly, which removes a compatibility unknown. The wrapper is
-checksum-pinned (`distributionSha256Sum`) so the build stays reproducible.
-**Revisit when:** a feature needs something only in a later Gradle, or AGP moves on.
+```
+> Failed to apply plugin 'com.android.internal.version-check'.
+   > Minimum supported Gradle version is 9.6.0. Current version is 9.4.1.
+```
 
-**Status:** Accepted. **Deviates from `TECHNICAL_ARCHITECTURE.md` §1 as first written.**
+**Decision.** Wrapper pinned to **Gradle 9.8.1**, as originally documented, with
+`distributionSha256Sum=dce76f55…c01f`.
+
+**Consequences.** A one-time ~130 MB distribution download. Verified working:
+`assembleDebug`, `assembleRelease`, `lintDebug` and `testDebugUnitTest` all succeed on
+2026-10-16. AGP's version line is not a reliable proxy for its Gradle requirement —
+check the stated minimum instead.
+
+**Status:** Accepted, superseding the 9.4.1 revision.
+
+---
+
+## ADR-022 — No Kotlin Gradle plugin; AGP 9 provides Kotlin
+
+**Context.** The initial build applied `org.jetbrains.kotlin.android` alongside AGP
+9.4.1, which is the long-standing convention. AGP rejected it:
+
+```
+The 'org.jetbrains.kotlin.android' plugin is no longer required for Kotlin support
+since AGP 9.0.
+```
+
+**Decision.** Remove `org.jetbrains.kotlin.android` from the root and app build files
+and from the version catalog's plugin block. Keep
+`org.jetbrains.kotlin.plugin.compose` — the Compose compiler plugin is still required
+and applies cleanly.
+
+**Consequences.** One less plugin and no Kotlin-plugin/AGP version coupling. Kotlin
+language level now follows AGP's built-in support. The `kotlin { compilerOptions { } }`
+block inside `android { }` continues to work for `jvmTarget`. Anyone following a
+pre-AGP-9 tutorial will try to re-add this plugin; this ADR is why they should not.
+
+**Status:** Accepted. **Verified by a successful build on 2026-10-16.**
 
 ---
 
@@ -373,6 +410,14 @@ Changes from the supplied concept board, with their ADR:
 | 3D Asset Store ₹99/₹149 | Not in v1.0 | ADR-016 |
 | Party Mode, Music Light rows | Omitted, not disabled | ADR-011 |
 | 6 objects in the 3D grid | 5 in v1.0 | ADR-012 |
+
+### Toolchain corrections found by building (2026-10-16)
+
+| Documented | Actual | ADR |
+|---|---|---|
+| Gradle 9.4.1 | 9.8.1 — AGP 9.4.1 requires ≥ 9.6.0 | ADR-021 |
+| `kotlin-android` plugin applied | removed — AGP 9 has built-in Kotlin | ADR-022 |
+| `compileSdk 36` | 37 — AndroidX `core-ktx` 1.19.1 requires it | ADR-002 |
 | Emergency: no output mechanism shown | Explicit Screen/Torch/Both selector added | `FR-EMER-02` |
 | Emergency "Fast" unspecified | Clamped to 5 Hz + warning | ADR-008 |
 | Onboarding text inside images | Real `Text` composables | `FR-GLOBAL-03` |

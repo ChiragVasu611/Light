@@ -8,9 +8,9 @@ pinned in `gradle/libs.versions.toml`.
 
 | Component | Version | Notes |
 |---|---|---|
-| Gradle | 9.4.1 | wrapper, `bin` distribution, checksum-pinned. Matches AGP's version line — see `ADR-021` |
+| Gradle | 9.8.1 | wrapper, checksum-pinned. AGP 9.4.1 requires ≥ 9.6.0 — see `ADR-021` |
 | Android Gradle Plugin | 9.4.1 | latest stable |
-| Kotlin | 2.4.21 | latest stable |
+| Kotlin | 2.4.21 | supplied by AGP's built-in Kotlin support; the `kotlin-android` plugin is **not** applied — see `ADR-022` |
 | Compose Compiler plugin | 2.4.21 | version-locked to Kotlin |
 | Compose BOM | 2026.09.00 | all `androidx.compose.*` versions come from the BOM |
 | Navigation Compose | 2.10.2 | |
@@ -36,8 +36,8 @@ pinned in `gradle/libs.versions.toml`.
 | Setting | Value | Rationale |
 |---|---|---|
 | `minSdk` | **24** (Android 7.0) | Filament's AAR declares `minSdkVersion 21`, so 24 is comfortably supported. 24 gives us modern `CameraManager.TorchCallback` (API 23+), `setTorchMode` (API 23+), and avoids a long tail of pre-Nougat graphics driver bugs. Covers > 99 % of active devices. |
-| `compileSdk` | **36** | Latest installed stable platform. |
-| `targetSdk` | **36** | Required for Play Store compliance at submission time; re-verify the required minimum before release. |
+| `compileSdk` | **37** | Required by `androidx.core:core-ktx` 1.19.1. Platform 37.0 installed 2026-10-16. |
+| `targetSdk` | **36** | Independent of `compileSdk`. Re-verify Play's required minimum before release. |
 
 API-gated features: flash strength (API 33+), `PowerManager.getCurrentThermalStatus`
 (API 29+), `enableEdgeToEdge` behaviour differences (API 29/35). Each is guarded with

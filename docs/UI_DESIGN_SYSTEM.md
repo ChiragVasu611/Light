@@ -37,7 +37,7 @@ little benefit. (`ADR-010`)
 | `Slate300` | `#8A97B4` | Secondary text, inactive icon |
 | `Slate200` | `#B6C0D6` | Tertiary emphasis text |
 | `White` | `#FFFFFF` | Primary text, active icon |
-| `Blue500` | `#2E7DF7` | **Primary** — filled buttons, selected segment, active nav |
+| `Blue500` | `#1F6FE8` | **Primary** — filled buttons, selected segment, active nav |
 | `Blue400` | `#5B9BFF` | Primary hover/pressed, focus ring |
 | `BlueGlow` | `#1B3A6B` | Primary container, selected card tint |
 | `Cyan400` | `#4BD8FF` | Accent — glow, highlights, 3D rim |
@@ -85,20 +85,37 @@ or large fills.
 
 ### 2.4 Contrast obligations (`NFR-A11Y-02`)
 
-| Pair | Ratio | Verdict |
-|---|---|---|
-| `White` on `Ink900` | 19.6:1 | pass |
-| `White` on `Ink700` | 16.2:1 | pass |
-| `Slate300` on `Ink700` | 6.4:1 | pass (body) |
-| `Slate300` on `Ink900` | 7.7:1 | pass |
-| `White` on `Blue500` | 4.8:1 | pass (body) |
-| `Blue500` on `Ink900` | 4.5:1 | pass — **but never use `Blue500` for body text**; it is a fill colour |
-| `Cyan400` on `Ink900` | 11.9:1 | pass |
-| `Red500` on `Ink700` | 4.6:1 | pass |
-| `Ink400` disabled text on `Ink700` | 2.0:1 | **intentional fail** — disabled content is exempt, but every disabled control must also carry a visible reason in `Slate300` |
+| Pair | Measured | Required | Verdict |
+|---|---|---|---|
+| `White` on `Ink900` | 20.12:1 | 4.5 | pass (AAA) |
+| `White` on `Ink700` | 17.72:1 | 4.5 | pass |
+| `White` on `Ink600` | 16.17:1 | 4.5 | pass |
+| `White` on `BlueGlow` | 11.27:1 | 4.5 | pass |
+| `White` on `Blue500` | **4.67:1** | 4.5 | pass — see note |
+| `Slate200` on `Ink700` | 9.70:1 | 4.5 | pass |
+| `Slate300` on `Ink900` | 6.87:1 | 4.5 | pass |
+| `Slate300` on `Ink700` | 6.05:1 | 4.5 | pass |
+| `Cyan400` on `Ink900` | 12.04:1 | 4.5 | pass |
+| `Amber400` on `Ink700` | 10.16:1 | 3.0 | pass (non-text/large) |
+| `Green500` on `Ink700` | 9.45:1 | 3.0 | pass |
+| `Blue400` on `Ink700` | 6.39:1 | 3.0 | pass |
+| `Red500` on `Ink900` | 5.14:1 | 3.0 | pass |
+| `Red500` on `Ink700` | 4.53:1 | 3.0 | pass |
+| `Blue500` on `Ink900` | 4.31:1 | 3.0 | pass (UI component, WCAG 1.4.11) |
+| `Blue500` on `Ink700` | 3.79:1 | 3.0 | pass (UI component) |
+| `Ink400` disabled text on `Ink700` | 2.0:1 | — | **intentional fail** — disabled content is exempt, but every disabled control must also carry a visible reason in `Slate300` |
 
-Ratios are computed from the hex values above and must be re-verified by
-`T-A11Y-02` rather than trusted from this table.
+> **`Blue500` was darkened from `#2E7DF7` to `#1F6FE8` on 2026-10-16.** The original
+> measured **3.89:1** against white, failing the 4.5:1 body minimum — and it is the
+> primary button fill with white labels. `T-A11Y-02` caught this before any button was
+> built. `#1F6FE8` is the closest passing colour to the concept board's blue.
+> Button labels are `labelLarge` (15 sp, SemiBold), which is below WCAG's large-text
+> threshold (14 pt bold ≈ 18.66 px), so the 4.5:1 body minimum genuinely applies.
+>
+> **`Blue500` is a fill colour and must never be used for body text.**
+
+These are **measured** values, emitted by `T-A11Y-02` on 2026-10-16, not estimates.
+The test fails the build if any pairing regresses.
 
 ---
 
