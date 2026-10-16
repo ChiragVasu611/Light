@@ -36,8 +36,9 @@ val AppColorScheme = darkColorScheme(
 )
 
 /**
- * @param reduceMotion overrides the system animator scale. Pass a value in tests and
- *   previews; leave null to read the device setting.
+ * @param reduceMotion the effective reduce-motion flag. The app passes
+ *   MainViewModel's value, which combines the system animator scale with the in-app
+ *   setting. Tests pass a fixed value; null reads only the device setting.
  */
 @Composable
 fun AppTheme(

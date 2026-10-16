@@ -24,6 +24,8 @@ import com.allinonelighting.feature.placeholder.NotYetImplementedScreen
 import com.allinonelighting.feature.settings.AboutScreen
 import com.allinonelighting.feature.settings.PermissionsScreen
 import com.allinonelighting.feature.settings.SettingsScreen
+import com.allinonelighting.feature.settings.display.DisplaySettingsScreen
+import com.allinonelighting.feature.settings.licences.LicencesScreen
 import com.allinonelighting.feature.smartlight.SmartLightScreen
 import com.allinonelighting.feature.tools.ToolDestination
 import com.allinonelighting.feature.tools.ToolsScreen
@@ -103,10 +105,7 @@ fun AppNavHost(
             }
 
             composable(Routes.SETTINGS_DISPLAY) {
-                NotYetImplementedScreen(
-                    title = stringResource(R.string.settings_display_title),
-                    modifier = Modifier.safeDrawingPadding(),
-                )
+                DisplaySettingsScreen(modifier = Modifier.safeDrawingPadding())
             }
             composable(Routes.SETTINGS_PERMISSIONS) {
                 PermissionsScreen(modifier = Modifier.safeDrawingPadding())
@@ -118,10 +117,7 @@ fun AppNavHost(
                 )
             }
             composable(Routes.LICENCES) {
-                NotYetImplementedScreen(
-                    title = stringResource(R.string.licences_title),
-                    modifier = Modifier.safeDrawingPadding(),
-                )
+                LicencesScreen(modifier = Modifier.safeDrawingPadding())
             }
             composable(Routes.SMART_LIGHT) {
                 SmartLightScreen(modifier = Modifier.safeDrawingPadding())

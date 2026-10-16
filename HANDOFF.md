@@ -5,7 +5,7 @@ Paste this as your first message in the new session.
 ---
 
 I'm continuing work on an Android app at `/Users/deo/Desktop/AllInOneLighting`.
-It's a git repo on branch `master`, working tree clean, 8 commits.
+It's a git repo on branch `master`.
 
 **Start by reading `docs/README.md`, then `docs/ROADMAP.md` and
 `docs/CLAUDE_CODE_IMPLEMENTATION_GUIDE.md`.** The `docs/` directory is the agreed
@@ -20,19 +20,28 @@ the rules you must follow. Do not re-plan the project; follow what's written.
 hardware. What exists: Gradle build, full design-system token set, core result/error
 types, `AppContainer` (manual DI), DataStore preferences repository, 11 reusable
 components, navigation with typed route arguments, and these working screens —
-onboarding, settings, permissions, about, smart light (informational), more tools.
-Home, 3D gallery, flashlight, screen light, candle, emergency, display settings and
-licences are deliberate honest placeholders that say they're not implemented yet.
+onboarding, settings, display settings, permissions, about, licences, smart light
+(informational), more tools. Home, 3D gallery, flashlight, screen light, candle and
+emergency are deliberate honest placeholders that say they're not implemented yet.
 
-**Remaining in Phase 1 — do these in order:**
+**1.11b is done (2026-10-16)** — see ADR-023 (licences), ADR-024 (48 dp segments),
+ADR-025 (display settings / reduce motion).
 
-1. **1.11b** — Display settings screen (default 3D environment, default quality mode,
-   reduce-motion toggle) and the Licences screen. Both static; no hardware needed.
-   The Licences screen is release gate 14 and must list Filament (Apache 2.0).
-2. **Onboarding illustrations** — pages currently render text-only, leaving a visible
+**Remaining in Phase 1:**
+
+1. **Onboarding illustrations** — pages currently render text-only, leaving a visible
    gap. Must be WebP, ≤120 KB, with **no text baked into the image** (FR-GLOBAL-03).
-3. **1.9b is NOT Phase 1 work** — the real Home layout lands with torch control in
+   These are image assets — someone has to supply or approve the artwork.
+2. **1.9b is NOT Phase 1 work** — the real Home layout lands with torch control in
    Phase 2, because its hero card needs live torch state.
+
+**Found, not yet fixed:** the bottom nav highlights a tab only on an exact route match,
+so no tab is highlighted on child screens (Display, Permissions, About, Licences,
+Flashlight…). `CMP-BOTTOMNAV` expects the parent tab to stay active.
+
+**Licences rule (ADR-023):** when Filament is added in Phase 3 (task 3.1), add its
+entry to `OpenSourceComponents` in the same change — `LicenceCoverageTest` fails the
+build until you do. Same for the Inter font in Phase 4.
 
 **Do not start Phase 2 until Phase 1 exit criteria in `docs/ROADMAP.md` are met.**
 
@@ -41,10 +50,10 @@ licences are deliberate honest placeholders that say they're not implemented yet
 ```bash
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 ./gradlew assembleDebug
-./gradlew testDebugUnitTest        # currently 39 tests, 0 failures
+./gradlew testDebugUnitTest        # currently 64 tests, 0 failures
 ./gradlew lintDebug
 ./gradlew assembleRelease          # R8 — catches Filament keep-rule bugs later
-./gradlew connectedDebugAndroidTest   # needs a device; 49 tests, 0 failures
+./gradlew connectedDebugAndroidTest   # needs a device; 65 tests, 0 failures
 ```
 
 Never claim a test passed without running it. `JAVA_HOME` must be set to JDK 17 —

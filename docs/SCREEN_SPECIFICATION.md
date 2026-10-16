@@ -95,7 +95,7 @@ Fixed bottom bar: page indicator (3 dots, active = 8 dp `Blue500`, inactive = 6 
 |---|---|---|---|---|
 | 1 | Practical lighting for everyday life | Use your phone's flashlight, a full-screen light, and emergency signals. | Next | Skip |
 | 2 | Explore realistic 3D light sources | Rotate, adjust, and see how different lights actually behave. | Next | Skip |
-| 3 | More features coming soon | Smart light integration and custom scenes are on the way. | Get started | — |
+| 3 | Ready when it matters | Send an SOS signal, use a strobe, or light your way in an emergency — with your flash or your screen. | Get started | — |
 
 **Interactions**
 - Swipe horizontally, or tap Next, to advance.
@@ -535,9 +535,7 @@ since v1.0 declares no `INTERNET` permission.
 |---|---|---|
 | General | Show introduction again | Action → resets the flag, navigates to `SCR-ONBOARDING` |
 | General | Keep torch on in background | `Switch`, default **off** |
-| Display | Default 3D environment | → `SCR-SETTINGS-DISPLAY` |
-| Display | Default quality mode | → `SCR-SETTINGS-DISPLAY` |
-| Display | Reduce motion | `Switch`, default follows the system animation scale |
+| Display | Display (3D environment, quality, motion) | → `SCR-SETTINGS-DISPLAY` (`ADR-025`) |
 | Privacy | Permissions | → `SCR-SETTINGS-PERMISSIONS` |
 | About | About this app | → `SCR-ABOUT` |
 
@@ -563,6 +561,25 @@ Two `CMP-SEGMENTED` groups: Default environment (Dark | Studio) and Default qual
 the setting changes. Below quality, a `CMP-BANNER` info noting that the app may
 temporarily lower quality when the device gets hot or enters battery saver
 (`T-3D-09`, `T-3D-10`).
+
+**Quality not yet chosen.** Until the user picks a mode, no segment is selected and a
+line explains that the simulator picks one for the device the first time it opens
+(`FR-3D-11`). A default is never shown as if it had been chosen.
+
+**Motion group.** A `CMP-ROW` switch, *Reduce motion*. Effective reduce-motion is
+"system animator scale is 0 **or** this switch is on" (`ADR-025`). When the system has
+animations removed, the switch shows on, is disabled, and its supporting text says
+"Animations are turned off in your device settings". The effective value drives
+`LocalMotion`/`LocalReduceMotion` app-wide.
+
+**Phase 1–2 note.** Until the 3D gallery ships (task 3.9), an info banner states that
+the simulator isn't in this build yet and that the choices are saved for when it is.
+
+**States.** `Loading` (renders nothing beyond the title — the store resolves in
+milliseconds and a spinner would only flash) → `Content`. Values come only from the
+store; a failed write leaves the previous value showing.
+
+**Tests.** `T-SET-06`, `T-A11Y-01`, `T-A11Y-03`.
 
 ---
 
@@ -597,9 +614,19 @@ Open-source licences → `SCR-LICENCES`, Help & support (in-app text with a
 
 ## SCR-LICENCES — Open-source licences
 
-A scrollable list of third-party components and their licence text, generated at
-build time. Must include Google Filament (Apache 2.0), AndroidX, Kotlin, and the
-Inter font (SIL OFL 1.1). Non-empty assertion in `T-SET-04`.
+A scrollable list of every third-party component in the release build, each with its
+licence, followed by one card per licence whose full text expands on request. Texts
+are bundled as raw resources; nothing is fetched.
+
+The list is hand-curated and **verified at build time** against the release runtime
+classpath (`ADR-023`, `T-SET-07`): every shipped module must be claimed by exactly one
+entry, and no entry may name something that does not ship. Google Filament
+(Apache 2.0) and the Inter font (SIL OFL 1.1) are added in the same change that adds
+them to the build (Phases 3 and 4). Non-empty assertion in `T-SET-04`.
+
+**States.** The component list is static and always renders. Each licence text is
+`Loading` → `Loaded`, or `Unavailable` with an error banner; a text failure never
+hides the attribution.
 
 ---
 

@@ -154,6 +154,28 @@ class NavigationTest {
     }
 
     @Test
+    fun settings_opens_the_real_display_settings_screen() {
+        launch(Routes.SETTINGS)
+        // "Display" is both a group heading and the row title; the subtitle is unique.
+        compose.onNodeWithText("3D environment, quality, motion").performClick()
+        compose.waitForIdle()
+
+        assertEquals(Routes.SETTINGS_DISPLAY, currentRoute())
+        compose.onNodeWithText("Default 3D environment").assertIsDisplayed()
+        compose.onNodeWithText("Reduce motion").assertExists()
+    }
+
+    @Test
+    fun about_opens_the_real_licences_screen() {
+        launch(Routes.ABOUT)
+        compose.onNodeWithText("Open-source licences").performClick()
+        compose.waitForIdle()
+
+        assertEquals(Routes.LICENCES, currentRoute())
+        compose.onNodeWithText("AndroidX and Jetpack Compose").assertIsDisplayed()
+    }
+
+    @Test
     fun full_screen_destinations_hide_the_bottom_bar() {
         launch()
         // Bottom bar is present on a top-level destination…

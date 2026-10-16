@@ -132,10 +132,10 @@ _Last updated: 2026-10-16 — Phase 1 in progress. ✅ rows have an implementati
 |---|---|---|---|---|---|
 | FR-SET-01 | `feature/settings` | `SCR-SETTINGS` | `T-SET-01` | `AC-SET-01` | ✅ |
 | FR-SET-02 | `feature/settings` | `SCR-SETTINGS` | `T-SET-02` | `AC-SET-02` | ⬜ |
-| FR-SET-03 | `feature/settings` | `SCR-SETTINGS-DISPLAY` | `T-A11Y-04` | `NFR-A11Y-04` | ⬜ |
+| FR-SET-03 | `feature/settings/display`, `core/device` | `SCR-SETTINGS-DISPLAY` | `T-SET-06`, `T-A11Y-04` | `NFR-A11Y-04` | 🟨 — settings persist and reduce-motion is live app-wide; environment/quality take effect when the simulator ships (Phase 3) |
 | FR-SET-04 | `feature/settings` | `SCR-SETTINGS-PERMISSIONS` | `T-SET-05` | — | ✅ |
 | FR-SET-05 | `feature/settings` | `SCR-ABOUT` | `T-SET-03` | `AC-SET-03` | ✅ |
-| FR-SET-06 | `feature/settings` | `SCR-LICENCES` | `T-SET-04` | `AC-SET-04` | ⬜ |
+| FR-SET-06 | `feature/settings/licences`, `data/licences` | `SCR-LICENCES` | `T-SET-04`, `T-SET-07` | `AC-SET-04` | ✅ for what ships today; Filament row lands with Filament (`ADR-023`) |
 | FR-SMART-01 | `feature/smartlight` | `SCR-SMARTLIGHT` | `T-SMART-02` | `AC-SMART-02` | ✅ |
 | FR-SMART-02 | `feature/smartlight` | `SCR-SMARTLIGHT` | `T-SMART-01` | `AC-SMART-01` | ✅ |
 | FR-SMART-03 | manifest | `SCR-SMARTLIGHT` | `T-SMART-03` | `AC-SMART-03` | ✅ |
@@ -158,10 +158,10 @@ _Last updated: 2026-10-16 — Phase 1 in progress. ✅ rows have an implementati
 | NFR-BAT-01 | `feature/screenlight` | code audit + Battery Historian | ⬜ |
 | NFR-BAT-02 | — | `T-GLOBAL-04` | ⬜ |
 | NFR-REL-01 | — | post-launch vitals | ⬜ |
-| NFR-A11Y-01 | `ui/components` | `T-A11Y-01` | ⬜ |
+| NFR-A11Y-01 | `ui/components` | `T-A11Y-01` | 🟨 — enforced on Settings, Display settings, Licences |
 | NFR-A11Y-02 | `ui/theme` | `T-A11Y-02` | ✅ |
 | NFR-A11Y-03 | all screens | `T-A11Y-03`, `T-A11Y-07` | ⬜ |
-| NFR-A11Y-04 | `ui/theme/Motion` | `T-A11Y-04` | ⬜ |
+| NFR-A11Y-04 | `ui/theme/Motion`, `MainViewModel` | `T-A11Y-04` | 🟨 — system + in-app setting wired to `LocalMotion`; `T-A11Y-04` not yet written |
 | NFR-COMPAT-01 | `app/build.gradle.kts` | build | ✅ |
 | NFR-COMPAT-02 | `core/device` | `T-3D-08` | ⬜ |
 

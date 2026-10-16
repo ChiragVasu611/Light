@@ -36,7 +36,7 @@ acceptance criterion (`AC-*`) with a matching test (`T-*`) in
 | ID | Requirement | Release |
 |---|---|---|
 | FR-ONB-01 | A splash screen uses the Android 12+ `SplashScreen` API, with no artificial delay. It is dismissed as soon as the first frame of the destination is ready. | L |
-| FR-ONB-02 | On first launch only, three onboarding pages are shown: Practical Lighting, 3D Light Sources, Coming Soon. | L |
+| FR-ONB-02 | On first launch only, three onboarding pages are shown: Practical Lighting, 3D Light Sources, Safety & Emergency. Onboarding describes only features that ship in v1.0 — no "coming soon" page (product owner, 2026-10-16). | L |
 | FR-ONB-03 | Onboarding is horizontally swipeable, shows a page indicator, and offers **Skip** on pages 1–2 and **Get Started** on page 3. | L |
 | FR-ONB-04 | Completing or skipping onboarding persists a flag; subsequent launches go straight to Home. | L |
 | FR-ONB-05 | Onboarding requests **no** permissions. | L |

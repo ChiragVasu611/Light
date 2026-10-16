@@ -394,6 +394,114 @@ pre-AGP-9 tutorial will try to re-add this plugin; this ADR is why they should n
 
 ---
 
+## ADR-023 — Licences list is hand-curated and build-verified, and lists only what ships
+
+**Context.** `SCR-LICENCES` says the list is "generated at build time" and must include
+Filament and the Inter font. Generating it needs a licence plugin (a new dependency,
+rule 11). And on 2026-10-16 neither Filament (Phase 3) nor Inter (Phase 4) is in the
+build: listing them would attribute software the app does not contain.
+
+**Decision.**
+1. The list (`feature/settings/licences/OpenSourceComponents.kt`) is written by hand,
+   one entry per component, with its licence and the Maven coordinates it covers.
+2. A Gradle task, `writeReleaseModules`, writes every external module in the
+   `releaseRuntimeClasspath` to `app/build/licences/release-runtime-modules.txt`.
+   Every `Test` task depends on it. No plugin is added.
+3. `LicenceCoverageTest` (`T-SET-07`) fails the build if any shipped module is not
+   claimed by **exactly one** entry, or if an entry matches nothing that ships.
+4. Licence texts are bundled as raw resources and read off the main thread. Nothing
+   is fetched.
+5. Filament and Inter entries are added **in the same change that adds them**. The
+   coverage test forces this: adding the Filament dependency without its entry fails
+   the build. `AC-SET-04`'s "includes Filament" therefore becomes true, and checked,
+   in Phase 3 task 3.1.
+
+**Finding that justified "exactly one".** AndroidX is uniformly Apache 2.0 except
+`androidx.datastore:datastore-preferences-external-protobuf`, a repackaged
+protobuf-lite under **BSD-3-Clause**. Its POM says so, and so does the
+`LICENSE.txt` it puts in the APK. A blanket "androidx = Apache 2.0" entry would have
+mis-attributed it. It now has its own entry with protobuf's licence text, which
+includes Google's copyright line. The AndroidX entry excludes it. All other shipped
+modules were audited against their published POM licences on 2026-10-16: Apache 2.0.
+
+**Consequences.** No new dependency, and the list cannot silently drift from the
+classpath. The test checks *coverage*, not *licence identity*: a new module that
+lands under a broad entry (for example a future non-Apache `androidx` artifact) is
+only caught by review. See `LIM-LICENCE-IDENTITY`.
+
+**Status:** Accepted.
+
+---
+
+## ADR-024 — Segments and text buttons are 48 dp tall, not 40
+
+**Context.** `CMP-SEGMENTED` specified a 40 dp segment height. `NFR-A11Y-01` requires
+48 × 48 dp touch targets. The conflict surfaced when `T-A11Y-01` was first run against
+a screen with segments (Display settings): every segment measured 40 dp. Material's
+`TextButton` is also 40 dp tall.
+
+**Decision.** `Sizes.segmentMinHeight` is 48 dp, so the visible pill is the touch
+target. A `TextButton` that must stand alone as a control gets
+`heightIn(min = minTouchTarget)`.
+
+**Alternatives.** `minimumInteractiveComponentSize()` on each segment keeps a 40 dp
+pill inside a 48 dp layout box. Because the container draws the `Ink600` track, that
+leaves a visibly uneven 6 dp top/bottom gap against 2 dp at the sides. Rejected.
+
+**Consequences.** The segmented control is 52 dp tall overall (48 + 2 × `xxs`),
+8 dp taller than the board. `T-A11Y-01` now runs against Settings, Display settings and
+Licences.
+
+**Status:** Accepted.
+
+---
+
+## ADR-025 — Display settings live on one screen; the system animation setting always wins
+
+**Context.** `SCR-SETTINGS` lists three Display rows (environment, quality, a Reduce
+motion switch). `SCR-SETTINGS-DISPLAY` lists the first two, and
+`TRACEABILITY_MATRIX.md` maps all of `FR-SET-03` to `SCR-SETTINGS-DISPLAY`.
+`FR-SET-03` says reduce motion "honours the system animation scale and can be forced
+on". It does not say what happens if the user turns it off while the system has
+animations removed.
+
+**Decision.**
+1. Settings shows one *Display* row. `SCR-SETTINGS-DISPLAY` holds the environment
+   and quality selectors and the Reduce motion switch.
+2. Effective reduce-motion = system animator scale is 0 **or** the in-app switch is on
+   (`resolveReduceMotion`). The app can never re-enable animations a user removed
+   system-wide. In that case the switch shows on, is disabled, and says why.
+3. The effective value is computed by `MainViewModel` and passed into `AppTheme`, so
+   `LocalMotion` and `LocalReduceMotion` follow the setting live, app-wide.
+4. Until the user picks a quality mode it stays unset, and no segment is selected.
+   `FR-3D-11` gives that choice to `DeviceClassifier` on first simulator launch.
+   Showing a default as selected would claim a choice nobody made.
+5. Until the 3D gallery ships (task 3.9), the screen says the simulator isn't in this
+   build yet and that the choices will apply when it is. Reduce motion works now.
+
+**Status:** Accepted.
+
+---
+
+## ADR-026 — Onboarding page 3 is Safety & Emergency, not "Coming soon"
+
+**Context.** The board's third onboarding page promised smart lights and custom
+scenes "coming soon". The product owner decided on 2026-10-16 that onboarding should not
+point a new user at features they can't use.
+
+**Decision.** Page 3 becomes "Ready when it matters": SOS, strobe and emergency light,
+using the flash or the screen. Every onboarding page now describes only shipping v1.0
+features. The Smart Light screen and its "Coming soon" badges are unchanged
+(`FR-SMART-01`). They are honest where the user goes looking; onboarding just stops
+advertising them.
+
+**Consequences.** The board's page-3 smart-home illustration is replaced by an
+emergency scene. `FR-ONB-02` is updated.
+
+**Status:** Accepted (product owner).
+
+---
+
 ## Deviations summary
 
 Changes from the supplied concept board, with their ADR:
@@ -421,3 +529,7 @@ Changes from the supplied concept board, with their ADR:
 | Emergency: no output mechanism shown | Explicit Screen/Torch/Both selector added | `FR-EMER-02` |
 | Emergency "Fast" unspecified | Clamped to 5 Hz + warning | ADR-008 |
 | Onboarding text inside images | Real `Text` composables | `FR-GLOBAL-03` |
+| Segment height 40 dp | 48 dp — touch target (`NFR-A11Y-01`) | ADR-024 |
+| Onboarding 3 "More features coming soon" | "Ready when it matters" — SOS, strobe, emergency light | ADR-026 |
+| Licences "generated at build time", must list Filament + Inter | Hand-curated, build-verified against the release classpath; Filament/Inter added with their dependency | ADR-023 |
+| Three Display rows on Settings | One row → `SCR-SETTINGS-DISPLAY`, which holds Reduce motion | ADR-025 |

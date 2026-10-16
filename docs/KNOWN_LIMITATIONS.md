@@ -105,6 +105,18 @@ links. Quick-settings tiles, widgets and app shortcuts are deferred.
 ### LIM-NO-BACKUP — App data is not backed up
 `allowBackup="false"` (`ADR-019`). Users changing devices re-pick their preferences.
 
+### LIM-LICENCE-IDENTITY — Licence coverage is checked, licence identity is not
+`T-SET-07` proves every shipped module has exactly one licences entry. It cannot prove
+that the entry names the module's *actual* licence. A new artifact that falls under a
+broad entry (e.g. a non-Apache `androidx` artifact) passes the test and is only caught
+by review. Mitigation: re-run the POM licence audit described in `ADR-023` whenever
+dependencies change, and before release (gate 14 review).
+
+### LIM-REDUCE-MOTION-LIVE — A system animation change is picked up on the next state change
+The system animator scale is read whenever preference state is derived, not observed.
+A user who removes animations in system settings while the app is open sees it take
+effect on the next settings change or relaunch.
+
 ---
 
 ### Found and fixed on real hardware
@@ -115,6 +127,9 @@ links. Quick-settings tiles, widgets and app shortcuts are deferred.
 | 2026-10-16 | Onboarding copy read "Use your **phone's** flashlight" — wrong on a tablet, and doubly so on one with no flash unit. | Copy made device-neutral. A capability-aware variant is a Phase 2 concern, once `DeviceCapabilities` exists. |
 | 2026-10-16 | `ComingSoonBadge` cleared its semantics unconditionally, so TalkBack never announced "Coming soon" on the Smart Light screen. | Announced by default; `AppRow` opts out because it folds the text into its own label. |
 | 2026-10-16 | White on the primary blue measured 3.89:1, below the 4.5:1 body minimum, on the fill behind every button label. | `Blue500` darkened `#2E7DF7` → `#1F6FE8` (4.67:1). |
+| 2026-10-16 | Segmented-control segments and text buttons measured 40 dp, below the 48 dp minimum, as soon as `T-A11Y-01` ran against Display settings. | Segment height token raised to 48 dp; standalone text buttons get a 48 dp minimum height (`ADR-024`). |
+| 2026-10-16 | The unchecked `Switch` track rendered in Material's baseline brown-purple on the OPPO CPH2127 — the dark-only scheme leaves `surfaceContainerHighest` unset. | `AppSwitchRow` binds Switch colours to tokens explicitly. |
+| 2026-10-16 | The release APK's `META-INF` showed one BSD licence among the AndroidX Apache ones: DataStore's repackaged protobuf. A blanket AndroidX entry would have mis-attributed it. | Own licences entry with protobuf's text; `T-SET-07` requires exactly one entry per module (`ADR-023`). |
 
 ## 4. Open questions
 
@@ -237,6 +252,7 @@ mistaken for fact.
 | Dependency versions in `TECHNICAL_ARCHITECTURE.md` §1 | **Verified 2026-10-15** | Maven metadata queries |
 | Contrast ratios in `UI_DESIGN_SYSTEM.md` §2.4 | Computed, not yet asserted | `T-A11Y-02` |
 | Triangle budgets per object | Target | asset review at Phase 3 |
+| Reduce-motion "forced by system" state renders correctly on hardware | Unit- and UI-tested with fakes only. Not exercised on a device: the OPPO CPH2127 (ColorOS) refuses `adb shell settings put global animator_duration_scale` without an extra developer option. | manual check on the SM-X110, or with *Remove animations* toggled by hand |
 
 ---
 

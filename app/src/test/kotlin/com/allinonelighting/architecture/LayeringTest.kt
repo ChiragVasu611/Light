@@ -64,6 +64,8 @@ class LayeringTest {
             files,
             listOf(
                 "com.allinonelighting.data.prefs.DataStorePreferencesRepository",
+                "com.allinonelighting.data.licences.RawResourceLicenceTextSource",
+                "com.allinonelighting.data.hardware.",
                 "com.allinonelighting.render.Filament",
             ),
             "feature must depend on interfaces, not implementations:",

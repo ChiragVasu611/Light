@@ -31,7 +31,8 @@ data class Sizes(
     // Containers
     val toolCardMinHeight: Dp = 92.dp,
     val rowMinHeight: Dp = 64.dp,
-    val segmentMinHeight: Dp = 40.dp,
+    // 48, not the board's 40: each segment is a touch target (NFR-A11Y-01, ADR-024).
+    val segmentMinHeight: Dp = 48.dp,
     val chipHeight: Dp = 34.dp,
     val badgeHeight: Dp = 22.dp,
     val bottomNavHeight: Dp = 64.dp,

@@ -7,7 +7,7 @@ not assertions.
 | Phase | Theme | Status |
 |---|---|---|
 | 0 | Repository and documentation | ✅ Complete |
-| 1 | Application foundation | ▶ In progress — build, design system, navigation, onboarding, settings done and verified on device |
+| 1 | Application foundation | ▶ In progress — everything except onboarding illustrations done and verified on device |
 | 2 | Core practical lighting | Not started |
 | 3 | Initial 3D simulator | Not started |
 | 4 | Quality and reliability | Not started |
@@ -75,8 +75,8 @@ and no feature logic. Nothing in this phase touches hardware or Filament.
 
 - [x] `./gradlew assembleDebug` succeeds
 - [x] `./gradlew assembleRelease` succeeds with R8
-- [x] `./gradlew testDebugUnitTest` — **26 tests, 0 failures**
-- [x] `./gradlew connectedDebugAndroidTest` — **11 tests, 0 failures, on a real device** (OPPO CPH2127, Android 12)
+- [x] `./gradlew testDebugUnitTest` — **64 tests, 0 failures** (2026-10-16, after 1.11b)
+- [x] `./gradlew connectedDebugAndroidTest` — **65 tests, 0 failures, on a real device** (OPPO CPH2127, Android 12; 2026-10-16, after 1.11b)
 - [x] `./gradlew lintDebug` — zero errors
 - [x] Design tokens match `UI_DESIGN_SYSTEM.md`; `T-DS-01` passes
 - [x] Onboarding works end to end and persists its flag (confirmed by hand on device: relaunch skips onboarding)
@@ -92,11 +92,11 @@ and no feature logic. Nothing in this phase touches hardware or Filament.
 | 1.9b | Home is an honest placeholder; its real layout (hero card + 2×2 grid + rows) lands with torch control in Phase 2 |
 | — | ~~More Tools screen~~ — **done 2026-10-16**, five launch rows, Party/Music absent per ADR-011 |
 | ~~1.7b~~ | ~~Component UI tests~~ — **done 2026-10-16.** 25 component tests across PowerToggle, SegmentedControl, Banner, Cards/States and ScreenContent, all passing on a real device. |
-| 1.11b | Display settings and Licences screens are placeholders |
+| ~~1.11b~~ | ~~Display settings and Licences screens~~ — **done 2026-10-16.** Display settings persist via DataStore; Reduce motion is live app-wide; Licences list is verified against the release classpath at build time (ADR-023/024/025). |
 | — | Onboarding illustrations not yet added (pages render text-only, leaving a visible gap) |
 
-Nothing above blocks Phase 2 design work, but Phase 1 is **not** signed off until
-1.8b and 1.7b are done.
+Nothing above blocks Phase 2 design work. With 1.8b, 1.7b and 1.11b done, the only
+open Phase 1 item is the onboarding illustrations.
 
 **Dependencies:** none beyond the toolchain.
 **Risk:** AGP 9.4.1 is a recent major release; DSL changes may require adjustment.

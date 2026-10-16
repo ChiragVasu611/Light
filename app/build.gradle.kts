@@ -94,3 +94,50 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
+
+// --- Licence coverage (ADR-023) ----------------------------------------------------
+// Writes every external module in the release runtime classpath to a file. The
+// licences screen is hand-curated; LicenceCoverageTest checks it against this list
+// in both directions, so a dependency cannot ship unattributed and an entry cannot
+// claim a component that does not ship.
+
+abstract class WriteReleaseModulesTask : DefaultTask() {
+    @get:Input
+    abstract val rootComponent: Property<org.gradle.api.artifacts.result.ResolvedComponentResult>
+
+    @get:OutputFile
+    abstract val output: RegularFileProperty
+
+    @TaskAction
+    fun write() {
+        val seen = mutableSetOf<org.gradle.api.artifacts.result.ResolvedComponentResult>()
+        val modules = sortedSetOf<String>()
+        val queue = ArrayDeque(listOf(rootComponent.get()))
+        while (queue.isNotEmpty()) {
+            val component = queue.removeFirst()
+            if (!seen.add(component)) continue
+            val id = component.id
+            if (id is org.gradle.api.artifacts.component.ModuleComponentIdentifier) {
+                modules += "${id.group}:${id.module}"
+            }
+            component.dependencies
+                .filterIsInstance<org.gradle.api.artifacts.result.ResolvedDependencyResult>()
+                .forEach { queue += it.selected }
+        }
+        output.get().asFile.writeText(modules.joinToString("\n", postfix = "\n"))
+    }
+}
+
+val writeReleaseModules = tasks.register<WriteReleaseModulesTask>("writeReleaseModules") {
+    description = "Lists external modules in the release runtime classpath (ADR-023)."
+    rootComponent.set(
+        configurations.named("releaseRuntimeClasspath")
+            .flatMap { it.incoming.resolutionResult.rootComponent },
+    )
+    output.set(layout.buildDirectory.file("licences/release-runtime-modules.txt"))
+}
+
+tasks.withType<Test>().configureEach {
+    dependsOn(writeReleaseModules)
+    inputs.files(writeReleaseModules)
+}

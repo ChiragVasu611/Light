@@ -1,13 +1,23 @@
 package com.allinonelighting.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.allinonelighting.data.licences.Licence
+import com.allinonelighting.domain.simulator.SimulatorEnvironment
 import com.allinonelighting.feature.settings.SettingsScreen
+import com.allinonelighting.feature.settings.display.DisplaySettingsContent
+import com.allinonelighting.feature.settings.display.DisplaySettingsUiState
+import com.allinonelighting.feature.settings.display.ReduceMotionSetting
+import com.allinonelighting.feature.settings.licences.LicenceTextState
+import com.allinonelighting.feature.settings.licences.LicencesContent
+import com.allinonelighting.feature.settings.licences.LicencesUiState
+import com.allinonelighting.feature.settings.licences.OpenSourceComponents
 import com.allinonelighting.ui.theme.AppTheme
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -25,27 +35,65 @@ class AccessibilityTest {
 
     private val minimumTouchTargetDp = 48
 
+    private val displayState = DisplaySettingsUiState.Content(
+        environment = SimulatorEnvironment.Dark,
+        quality = null,
+        reduceMotion = ReduceMotionSetting.UserChoice(enabled = false),
+    )
+
+    private val licencesState = LicencesUiState(
+        components = OpenSourceComponents,
+        licenceTexts = mapOf(Licence.Apache2 to LicenceTextState.Loading),
+    )
+
+    private val screens: Map<String, @Composable () -> Unit> = mapOf(
+        "Settings" to {
+            SettingsScreen(
+                onOpenDisplay = {},
+                onOpenPermissions = {},
+                onOpenAbout = {},
+                onReplayIntro = {},
+            )
+        },
+        "Display settings" to { DisplaySettingsContent(state = displayState, onEvent = {}) },
+        "Licences" to { LicencesContent(state = licencesState) },
+    )
+
     @Test
-    fun every_clickable_node_meets_the_minimum_touch_target() {
+    fun settings_meets_the_minimum_touch_target() = assertTouchTargets("Settings")
+
+    @Test
+    fun display_settings_meets_the_minimum_touch_target() =
+        assertTouchTargets("Display settings")
+
+    @Test
+    fun licences_meets_the_minimum_touch_target() = assertTouchTargets("Licences")
+
+    @Test
+    fun settings_clickables_are_labelled() = assertLabelled("Settings")
+
+    @Test
+    fun display_settings_clickables_are_labelled() = assertLabelled("Display settings")
+
+    @Test
+    fun licences_clickables_are_labelled() = assertLabelled("Licences")
+
+    private fun setScreen(name: String) {
+        val screen = screens.getValue(name)
         compose.setContent {
             AppTheme(reduceMotion = true) {
-                Column {
-                    SettingsScreen(
-                        onOpenDisplay = {},
-                        onOpenPermissions = {},
-                        onOpenAbout = {},
-                        onReplayIntro = {},
-                    )
-                }
+                Column { screen() }
             }
         }
+    }
+
+    private fun assertTouchTargets(name: String) {
+        setScreen(name)
 
         val density = compose.density
-        val clickables = compose.onRoot()
-            .fetchSemanticsNode()
-            .let { collectClickable(it) }
+        val clickables = collectClickable(compose.onRoot().fetchSemanticsNode())
 
-        assertTrue("expected clickable nodes to assert on", clickables.isNotEmpty())
+        assertTrue("$name: expected clickable nodes to assert on", clickables.isNotEmpty())
 
         val tooSmall = clickables.mapNotNull { node ->
             val w = with(density) { node.size.width.toDp().value }
@@ -62,24 +110,14 @@ class AccessibilityTest {
         }
 
         assertTrue(
-            "Clickable targets below ${minimumTouchTargetDp}dp (NFR-A11Y-01):\n" +
+            "$name: clickable targets below ${minimumTouchTargetDp}dp (NFR-A11Y-01):\n" +
                 tooSmall.joinToString("\n"),
             tooSmall.isEmpty(),
         )
     }
 
-    @Test
-    fun every_clickable_node_has_an_accessible_label() {
-        compose.setContent {
-            AppTheme(reduceMotion = true) {
-                SettingsScreen(
-                    onOpenDisplay = {},
-                    onOpenPermissions = {},
-                    onOpenAbout = {},
-                    onReplayIntro = {},
-                )
-            }
-        }
+    private fun assertLabelled(name: String) {
+        setScreen(name)
 
         val unlabelled = collectClickable(compose.onRoot().fetchSemanticsNode())
             .filter { node ->
@@ -88,7 +126,7 @@ class AccessibilityTest {
             }
 
         assertTrue(
-            "Clickable nodes with no label (NFR-A11Y-03): ${unlabelled.size}",
+            "$name: clickable nodes with no label (NFR-A11Y-03): ${unlabelled.size}",
             unlabelled.isEmpty(),
         )
     }

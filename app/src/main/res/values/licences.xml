@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  SCR-LICENCES content. Product names, copyright holders and licence names are
+  proper nouns and legal notices, so they are not translated.
+
+  Every entry must correspond to a component in the release runtime classpath, and
+  every such component must have an entry: LicenceCoverageTest enforces both
+  directions against the module list Gradle writes at build time (ADR-023).
+-->
+<resources>
+    <string name="licence_apache_2_0_name" translatable="false">Apache License 2.0</string>
+    <string name="licence_apache_2_0_url" translatable="false">https://www.apache.org/licenses/LICENSE-2.0</string>
+    <string name="licence_bsd_3_clause_name" translatable="false">BSD 3-Clause License</string>
+    <string name="licence_bsd_3_clause_url" translatable="false">https://opensource.org/licenses/BSD-3-Clause</string>
+
+    <string name="oss_androidx_name" translatable="false">AndroidX and Jetpack Compose</string>
+    <string name="oss_androidx_detail" translatable="false">Including Material 3, Material Icons, Navigation, Lifecycle and DataStore. Copyright The Android Open Source Project.</string>
+    <string name="oss_protobuf_name" translatable="false">Protocol Buffers (lite)</string>
+    <string name="oss_protobuf_detail" translatable="false">Repackaged inside AndroidX DataStore. Copyright 2008 Google Inc.</string>
+    <string name="oss_kotlin_name" translatable="false">Kotlin standard library</string>
+    <string name="oss_kotlin_detail" translatable="false">Copyright JetBrains s.r.o. and Kotlin Programming Language contributors.</string>
+    <string name="oss_coroutines_name" translatable="false">kotlinx.coroutines</string>
+    <string name="oss_coroutines_detail" translatable="false">Copyright JetBrains s.r.o. and contributors.</string>
+    <string name="oss_serialization_name" translatable="false">kotlinx.serialization</string>
+    <string name="oss_serialization_detail" translatable="false">Copyright JetBrains s.r.o. and contributors.</string>
+    <string name="oss_jetbrains_annotations_name" translatable="false">JetBrains Java Annotations</string>
+    <string name="oss_jetbrains_annotations_detail" translatable="false">Copyright JetBrains s.r.o.</string>
+    <string name="oss_okio_name" translatable="false">Okio</string>
+    <string name="oss_okio_detail" translatable="false">Copyright Square, Inc.</string>
+    <string name="oss_guava_name" translatable="false">Guava ListenableFuture</string>
+    <string name="oss_guava_detail" translatable="false">Copyright The Guava Authors.</string>
+    <string name="oss_jspecify_name" translatable="false">JSpecify</string>
+    <string name="oss_jspecify_detail" translatable="false">Copyright The JSpecify Authors.</string>
+</resources>

@@ -172,8 +172,10 @@ change.
 | `T-SET-01` | No Audio group in Settings | UI | `AC-SET-01` |
 | `T-SET-02` | Show introduction again → onboarding shows on relaunch | UI | `AC-SET-02` |
 | `T-SET-03` | About version equals `BuildConfig.VERSION_NAME` | UI | `AC-SET-03` |
-| `T-SET-04` | Licences list non-empty and contains Filament | UI | `AC-SET-04` |
+| `T-SET-04` | Licences list non-empty and lists shipped components; contains Filament once Filament ships (Phase 3, `ADR-023`) | UI | `AC-SET-04` |
 | `T-SET-05` | Permissions screen states no runtime permissions are requested | UI | `SCR-SETTINGS-PERMISSIONS` |
+| `T-SET-06` | Display settings reflect only the store: selections persist, a failed write leaves the old value, system-removed animations force reduce-motion and disable the switch | Unit + UI | `FR-SET-03`, `ADR-025` |
+| `T-SET-07` | Every module in the release runtime classpath is claimed by exactly one licences entry, and no entry names something that does not ship | Static | `FR-SET-06`, `ADR-023` |
 | `T-SMART-01` | Smart Light composition contains no `Role.Switch` and no `ProgressBarRangeInfo` | UI | `AC-SMART-01` |
 | `T-SMART-02` | Every Smart Light entry point includes "Coming soon" in its semantics | UI | `AC-SMART-02` |
 | `T-SMART-03` | `INTERNET` not in the merged manifest | Robolectric | `AC-SMART-03` |

@@ -23,8 +23,8 @@
     <string name="onboarding_1_body">Use your device\'s flashlight, a full-screen light, and emergency signals.</string>
     <string name="onboarding_2_title">Explore realistic 3D light sources</string>
     <string name="onboarding_2_body">Rotate, adjust, and see how different lights actually behave.</string>
-    <string name="onboarding_3_title">More features coming soon</string>
-    <string name="onboarding_3_body">Smart light integration and custom scenes are on the way.</string>
+    <string name="onboarding_3_title">Ready when it matters</string>
+    <string name="onboarding_3_body">Send an SOS signal, use a strobe, or light your way in an emergency — with your flash or your screen.</string>
 
     <!-- Home -->
     <string name="home_title">All-in-One Lighting</string>
@@ -77,11 +77,30 @@
     <string name="settings_reduce_motion">Reduce motion</string>
     <string name="settings_reduce_motion_subtitle">Minimise animation across the app</string>
     <string name="settings_display_title">Display</string>
-    <string name="settings_display_subtitle">Brightness, environment, quality</string>
+    <string name="settings_display_subtitle">3D environment, quality, motion</string>
     <string name="settings_permissions_title">Permissions</string>
     <string name="settings_permissions_subtitle">What this app asks for</string>
     <string name="settings_about_title">About this app</string>
     <string name="settings_about_subtitle">Version and licences</string>
+
+    <!-- Display settings (SCR-SETTINGS-DISPLAY, FR-SET-03) -->
+    <string name="display_environment_heading">Default 3D environment</string>
+    <string name="display_environment_body">The room your light sources are shown in. Dark shows the light itself: beam, glow and shadows. Studio shows the object\'s shape and materials under neutral light.</string>
+    <string name="display_environment_dark">Dark</string>
+    <string name="display_environment_studio">Studio</string>
+    <string name="display_quality_heading">Default quality</string>
+    <string name="display_quality_body">Performance saves battery and runs at 30 fps without shadows. Balanced adds shadows and the beam cone at 60 fps. High quality adds sharper edges and softer shadows.</string>
+    <string name="display_quality_performance">Performance</string>
+    <string name="display_quality_balanced">Balanced</string>
+    <string name="display_quality_high">High quality</string>
+    <string name="display_quality_automatic">Not chosen yet. The simulator picks a mode for this device the first time it opens.</string>
+    <string name="display_quality_thermal_title">Quality may drop temporarily</string>
+    <string name="display_quality_thermal_body">If your device gets hot or battery saver turns on, the simulator switches to Performance until conditions improve.</string>
+    <string name="display_motion_heading">Motion</string>
+    <string name="display_reduce_motion_forced">Animations are turned off in your device settings</string>
+    <!-- Phase 1 only: removed when the 3D gallery ships (roadmap task 3.9). -->
+    <string name="display_simulator_pending_title">The 3D simulator isn\'t in this build yet</string>
+    <string name="display_simulator_pending_body">Your environment and quality choices are saved and will apply when it arrives. Reduce motion works now.</string>
 
     <!-- Permissions screen (FR-SET-04) -->
     <string name="permissions_heading">This app requests no permissions</string>
@@ -97,6 +116,13 @@
     <string name="about_licences">Open-source licences</string>
     <string name="about_help">Help &amp; support</string>
     <string name="licences_title">Open-source licences</string>
+    <string name="licences_intro">This app is built with the open-source software below. Thank you to everyone who made it.</string>
+    <string name="licences_components_heading">Components</string>
+    <string name="licences_texts_heading">Licence texts</string>
+    <string name="licences_show_text">Show full text</string>
+    <string name="licences_hide_text">Hide full text</string>
+    <string name="licences_text_loading">Loading licence text…</string>
+    <string name="licences_text_unavailable">The licence text couldn\'t be loaded. Close this screen and open it again to retry.</string>
 
     <!-- Smart light (FR-SMART-01/02) -->
     <string name="smartlight_title">Smart lights</string>

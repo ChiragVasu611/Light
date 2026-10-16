@@ -6,7 +6,7 @@ and how it is verified. Implementation must follow these documents; deviations a
 recorded in [DECISIONS.md](DECISIONS.md).
 
 **Status:** Phase 0 complete (documentation). Phase 1 (application foundation) in progress.
-**Last updated:** 2026-10-15
+**Last updated:** 2026-10-16
 
 ---
 

@@ -224,10 +224,15 @@ where separation reads as tone, not drop shadow.]
 - 20 dp leading icon in a 40 dp tile · title `titleMedium` · subtitle `bodyMedium`
   `Slate300` · trailing chevron 20 dp `Slate300`.
 - Grouped rows separated by `sm` (8 dp) gaps rather than dividers.
+- **Switch variant** (`AppSwitchRow`): trailing `Switch` instead of the chevron. The
+  whole row is the control (`toggleable`, `Role.Switch`); the `Switch` itself is
+  display-only. Switch colours are bound to tokens explicitly (checked `Blue500` track,
+  unchecked `Ink600` track with `Ink500` border), because Material's unchecked default
+  reads an unset scheme slot. When disabled, the subtitle states why.
 
 ### CMP-SEGMENTED — Segmented control (Narrow/Medium/Wide, Warm/Neutral/Cool, Fast/Medium/Slow)
 - Container: `Ink600`, `rPill`, padding `xxs`, full width.
-- Segment: equal weight, min height 40 dp, `rPill`.
+- Segment: equal weight, min height 48 dp (touch target, `NFR-A11Y-01`, `ADR-024`), `rPill`.
 - Selected: `Blue500` fill, `White` `labelMedium`. Unselected: transparent,
   `Slate300`.
 - Semantics: `Role.RadioButton` per segment, `selectableGroup()` on the container.

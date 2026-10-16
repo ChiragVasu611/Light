@@ -4,11 +4,15 @@ import android.content.Context
 import com.allinonelighting.BuildConfig
 import com.allinonelighting.core.coroutines.DefaultDispatcherProvider
 import com.allinonelighting.core.coroutines.DispatcherProvider
+import com.allinonelighting.core.device.SystemAnimationSettings
 import com.allinonelighting.core.log.AppLogger
 import com.allinonelighting.core.log.DebugLogger
 import com.allinonelighting.core.log.ReleaseLogger
 import com.allinonelighting.core.time.AppTimeSource
 import com.allinonelighting.core.time.SystemTimeSource
+import com.allinonelighting.data.hardware.AndroidSystemAnimationSettings
+import com.allinonelighting.data.licences.LicenceTextSource
+import com.allinonelighting.data.licences.RawResourceLicenceTextSource
 import com.allinonelighting.data.prefs.DataStorePreferencesRepository
 import com.allinonelighting.data.prefs.PreferencesRepository
 
@@ -23,6 +27,8 @@ interface AppContainer {
     val dispatchers: DispatcherProvider
     val timeSource: AppTimeSource
     val preferences: PreferencesRepository
+    val systemAnimations: SystemAnimationSettings
+    val licenceTexts: LicenceTextSource
 }
 
 /**
@@ -41,5 +47,13 @@ class DefaultAppContainer(private val context: Context) : AppContainer {
 
     override val preferences: PreferencesRepository by lazy {
         DataStorePreferencesRepository(context.applicationContext, logger)
+    }
+
+    override val systemAnimations: SystemAnimationSettings by lazy {
+        AndroidSystemAnimationSettings(context)
+    }
+
+    override val licenceTexts: LicenceTextSource by lazy {
+        RawResourceLicenceTextSource(context, dispatchers, logger)
     }
 }

@@ -20,6 +20,7 @@ import com.allinonelighting.ui.theme.AppTheme
 class MainActivity : ComponentActivity() {
 
     private val splashViewModel: SplashViewModel by viewModels { SplashViewModel.Factory }
+    private val mainViewModel: MainViewModel by viewModels { MainViewModel.Factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splash = installSplashScreen()
@@ -33,7 +34,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            AppTheme {
+            val reduceMotion by mainViewModel.reduceMotion.collectAsStateWithLifecycle()
+            AppTheme(reduceMotion = reduceMotion) {
                 val destination by splashViewModel.destination.collectAsStateWithLifecycle()
                 when (destination) {
                     // The system splash is still covering the window here.
