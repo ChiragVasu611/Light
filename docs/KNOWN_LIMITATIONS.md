@@ -107,6 +107,15 @@ links. Quick-settings tiles, widgets and app shortcuts are deferred.
 
 ---
 
+### Found and fixed on real hardware
+
+| Date | Finding | Resolution |
+|---|---|---|
+| 2026-10-16 | The Medium-width rule in `UI_DESIGN_SYSTEM.md` §8 (cap single-column content at 560 dp and centre it) had never been implemented. On a 621 dp tablet, list rows stretched edge to edge with a long dead run to the trailing chevron. | `ScreenContent` added and applied to every single-column screen; `ScreenContentTest` keeps the rule enforced. |
+| 2026-10-16 | Onboarding copy read "Use your **phone's** flashlight" — wrong on a tablet, and doubly so on one with no flash unit. | Copy made device-neutral. A capability-aware variant is a Phase 2 concern, once `DeviceCapabilities` exists. |
+| 2026-10-16 | `ComingSoonBadge` cleared its semantics unconditionally, so TalkBack never announced "Coming soon" on the Smart Light screen. | Announced by default; `AppRow` opts out because it folds the text into its own label. |
+| 2026-10-16 | White on the primary blue measured 3.89:1, below the 4.5:1 body minimum, on the fill behind every button label. | `Blue500` darkened `#2E7DF7` → `#1F6FE8` (4.67:1). |
+
 ## 4. Open questions
 
 Each has a recommended default so work is never blocked, but each needs a product

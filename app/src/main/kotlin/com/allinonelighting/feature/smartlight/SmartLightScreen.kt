@@ -3,12 +3,8 @@ package com.allinonelighting.feature.smartlight
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircleOutline
 import androidx.compose.material3.Icon
@@ -25,6 +21,7 @@ import com.allinonelighting.ui.components.AppBanner
 import com.allinonelighting.ui.components.BannerSeverity
 import com.allinonelighting.ui.components.ComingSoonBadge
 import com.allinonelighting.ui.theme.LocalSizes
+import com.allinonelighting.ui.components.ScreenContent
 import com.allinonelighting.ui.theme.LocalSpacing
 
 /**
@@ -46,12 +43,8 @@ fun SmartLightScreen(modifier: Modifier = Modifier) {
         R.string.smartlight_planned_4,
     )
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(spacing.lg),
-        verticalArrangement = Arrangement.spacedBy(spacing.lg),
+    ScreenContent(
+        modifier = modifier,
     ) {
         ComingSoonBadge(stringResource(R.string.badge_coming_soon))
 

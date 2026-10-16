@@ -20,7 +20,7 @@
     <!-- Onboarding -->
     <string name="onboarding_page_indicator">Page %1$d of %2$d</string>
     <string name="onboarding_1_title">Practical lighting for everyday life</string>
-    <string name="onboarding_1_body">Use your phone\'s flashlight, a full-screen light, and emergency signals.</string>
+    <string name="onboarding_1_body">Use your device\'s flashlight, a full-screen light, and emergency signals.</string>
     <string name="onboarding_2_title">Explore realistic 3D light sources</string>
     <string name="onboarding_2_body">Rotate, adjust, and see how different lights actually behave.</string>
     <string name="onboarding_3_title">More features coming soon</string>

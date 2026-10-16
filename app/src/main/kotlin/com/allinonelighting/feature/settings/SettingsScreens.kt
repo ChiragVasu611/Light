@@ -5,11 +5,7 @@ import android.net.Uri
 import android.provider.Settings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Brightness6
 import androidx.compose.material.icons.filled.Info
@@ -28,6 +24,7 @@ import com.allinonelighting.BuildConfig
 import com.allinonelighting.R
 import com.allinonelighting.ui.components.AppRow
 import com.allinonelighting.ui.theme.FeatureAccent
+import com.allinonelighting.ui.components.ScreenContent
 import com.allinonelighting.ui.theme.LocalSpacing
 
 /**
@@ -47,12 +44,8 @@ fun SettingsScreen(
 ) {
     val spacing = LocalSpacing.current
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(spacing.lg),
-        verticalArrangement = Arrangement.spacedBy(spacing.lg),
+    ScreenContent(
+        modifier = modifier,
     ) {
         SettingsGroup(stringResource(R.string.settings_group_general)) {
             AppRow(
@@ -116,12 +109,8 @@ fun PermissionsScreen(modifier: Modifier = Modifier) {
     val spacing = LocalSpacing.current
     val context = LocalContext.current
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(spacing.lg),
-        verticalArrangement = Arrangement.spacedBy(spacing.lg),
+    ScreenContent(
+        modifier = modifier,
     ) {
         Text(
             text = stringResource(R.string.permissions_heading),
@@ -171,12 +160,8 @@ fun AboutScreen(
 ) {
     val spacing = LocalSpacing.current
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(spacing.lg),
-        verticalArrangement = Arrangement.spacedBy(spacing.lg),
+    ScreenContent(
+        modifier = modifier,
     ) {
         Text(
             text = stringResource(R.string.app_name),

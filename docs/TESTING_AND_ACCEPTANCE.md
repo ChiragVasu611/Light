@@ -329,18 +329,28 @@ Automated tests cannot verify that light actually came out of the phone.
 
 ### Devices actually available (verified 2026-10-16)
 
-| Device | Class | Android | ABI | RAM | GL ES | Flash | Flash strength API |
-|---|---|---|---|---|---|---|---|
-| **OPPO CPH2127** | **Low** | 12 (API 31) | arm64-v8a | 3.56 GB | **3.2** | **yes** | **no** — API 31 < 33 |
+| Device | Class | Android | ABI | RAM | Width | GL ES | Flash | Flash strength API |
+|---|---|---|---|---|---|---|---|---|
+| **OPPO CPH2127** (phone) | **Low** | 12 (API 31) | arm64-v8a | 3.56 GB | Compact | **3.2** | **yes** | **no** — API 31 < 33 |
+| **Samsung SM-X110** (tablet) | **Low** | 15 (API 35) | arm64-v8a | 3.83 GB | **Medium (621 dp)** | **3.2** | **no** | n/a |
 
 This device is a genuinely useful matrix entry: it is Low-class, has a flash unit, is
 below API 33 so it cannot expose flash strength (confirming `LIM-FLASH-STRENGTH`
 firsthand), supports GL ES 3.2 so Filament will run, and is an OPPO/ColorOS build —
 one of the OEMs named in `LIM-OEM-BACKGROUND`.
 
-Still needed for a complete matrix: a Mid or High device on API 33+ (to exercise the
-flash-strength path at all), and a device with **no** flash unit (to verify
-`AC-HOME-02` on real hardware rather than only against a fake).
+Between them these two cover a lot: a phone with a flash below API 33, and a
+**tablet with no flash unit at all** on API 35 — the device class needed to verify
+`AC-HOME-02`, `FR-HOME-07` and `FR-TORCH-07` on real hardware rather than only
+against a fake. The tablet also confirms that `uses-feature required="false"` was the
+right call: the app installs and runs there, and every non-torch feature works.
+
+The tablet is also the only **Medium** width-class device available, and finding it
+immediately exposed an unimplemented responsive rule (see `ScreenContentTest`).
+
+Still needed: a Mid or High device on API 33+ that actually reports
+`FLASH_INFO_STRENGTH_MAXIMUM_LEVEL > 1`, since neither device here can exercise the
+flash-strength path at all.
 
 Per-device checklist: cold start feel · torch on/off and physical light confirmed ·
 torch state after backgrounding · screen light at min and max brightness · SOS visually

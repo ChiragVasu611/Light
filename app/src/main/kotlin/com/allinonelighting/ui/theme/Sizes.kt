@@ -49,6 +49,13 @@ data class Sizes(
 
     /** Text never measures wider than this, however large the window. */
     val maxTextMeasure: Dp = 640.dp,
+
+    /**
+     * Single-column content is capped here and centred on Medium and Expanded
+     * windows (docs/UI_DESIGN_SYSTEM.md §8). Compact windows are narrower than this,
+     * so the cap has no effect there.
+     */
+    val maxContentWidth: Dp = 560.dp,
 )
 
 val LocalSizes = staticCompositionLocalOf { Sizes() }

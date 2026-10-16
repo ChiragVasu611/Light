@@ -91,7 +91,7 @@ and no feature logic. Nothing in this phase touches hardware or Filament.
 | ~~1.8b~~ | ~~Route arguments~~ — **done 2026-10-16.** Typed enums in `domain`, validated parsing, 11 navigation tests on device |
 | 1.9b | Home is an honest placeholder; its real layout (hero card + 2×2 grid + rows) lands with torch control in Phase 2 |
 | — | ~~More Tools screen~~ — **done 2026-10-16**, five launch rows, Party/Music absent per ADR-011 |
-| 1.7b | Components still without a UI test: `HeroCard`, `ToolCard`, `SegmentedControl`, `PowerToggle`, `AppBanner`, `LoadingState`. (`AppRow` is now covered via the Tools screen.) |
+| ~~1.7b~~ | ~~Component UI tests~~ — **done 2026-10-16.** 25 component tests across PowerToggle, SegmentedControl, Banner, Cards/States and ScreenContent, all passing on a real device. |
 | 1.11b | Display settings and Licences screens are placeholders |
 | — | Onboarding illustrations not yet added (pages render text-only, leaving a visible gap) |
 

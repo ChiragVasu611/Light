@@ -2,11 +2,7 @@ package com.allinonelighting.feature.tools
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bolt
 import androidx.compose.material.icons.filled.Bedtime
@@ -26,6 +22,7 @@ import com.allinonelighting.domain.emergency.EmergencyPattern
 import com.allinonelighting.domain.screenlight.ScreenLightMode
 import com.allinonelighting.ui.components.AppRow
 import com.allinonelighting.ui.theme.FeatureAccent
+import com.allinonelighting.ui.components.ScreenContent
 import com.allinonelighting.ui.theme.LocalSpacing
 
 /**
@@ -89,11 +86,8 @@ fun ToolsScreen(
 ) {
     val spacing = LocalSpacing.current
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(spacing.lg),
+    ScreenContent(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(spacing.sm),
     ) {
         Text(
